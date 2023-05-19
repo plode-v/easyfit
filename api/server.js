@@ -4,37 +4,13 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
-});
-
-const User = mongoose.model("User", userSchema);
+const User = require("./auth/authModel.js");
+const connect = require("./configs/dbConfig.js")
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-    origin: "http://localhost:5173"
-}));
+app.use(cors());
 
-mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_PASSWORD}@members.6d53gxi.mongodb.net/Users?retryWrites=true&w=majority`)
-    .then(() => {
-        console.log("Connected to MongoDB database");
-    })
-    .catch((err) => {
-        console.error(err);
-    })
 
 app.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
@@ -87,7 +63,7 @@ app.post("/logout", verifyToken, (req, res) => {
 })
 
 // Change this to user's dashboard
-app.get("/protected", verifyToken, (req, res) => {
+app.get("/dashboard", verifyToken, (req, res) => {
     const user = req.user;
 
     console.log("this is protected route");

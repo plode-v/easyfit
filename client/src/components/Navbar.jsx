@@ -21,7 +21,7 @@ const Navbar = () => {
                 <Link to="/">EasyFit</Link>
             </h1>
             <ul className="flex gap-4 font-[500] text-[16px]">
-                <li><Link to="/">About Us</Link></li>
+                <li><Link to="/signup">Signup</Link></li>
                 <li><Link to="/login">Login</Link></li>
             </ul>
         </nav>

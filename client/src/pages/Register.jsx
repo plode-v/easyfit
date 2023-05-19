@@ -1,13 +1,10 @@
-import { useState } from "react"
-import axios from "axios";
+import { SignupForm } from "../components"
 
 const Register = () => {
 
     return (
         <div>
-            <form action="">
-                
-            </form>
+            <SignupForm />
         </div>
     )
 }
