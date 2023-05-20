@@ -1,8 +1,10 @@
-const Home = () => {
+import { HeroBanner, Features } from "./"
 
+const Home = () => {
     return (
         <div>
-            Home
+            <HeroBanner />
+            <Features />
         </div>
     )
 }
