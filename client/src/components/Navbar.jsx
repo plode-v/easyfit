@@ -9,7 +9,7 @@ const Navbar = () => {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollData = window.scrollY;
-            const shouldHideNav = currentScrollData > prevScrollData;
+            const shouldHideNav = currentScrollData > prevScrollData && currentScrollData > 0;
 
             setPrevScrollData(currentScrollData);
             setHideNav(shouldHideNav);
