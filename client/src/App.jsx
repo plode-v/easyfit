@@ -5,42 +5,27 @@ import { ConfigRoutes } from "./configs"
 import { Navbar, Top } from './components'
 
 function App() {
-
-	const container = {
-		hidden: {
-			opacity: 0,
-			y: -100
-		},
-		show: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.2
-			}
-		}
-	}
-
 	const item = {
 		hidden: {
 			opacity: 0,
 			y: -100,
 			transition: {
-				duration: 1
+				duration: 0.1
 			}
 		},
 		show: {
 			opacity: 1,
 			y: 0,
 			transition: {
-				duration: 1,
-				staggerChildren: 0.5,
+				duration: 0.8,
+				staggerChildren: 0.2,
 				delayChildren: 0.1
 			}
 		}
 	}
 
 	return (
-		<motion.div variants={container} initial="hidden" animate="show" className='w-screen'>
+		<motion.div variants={item} initial="hidden" animate="show" className='w-screen'>
 			<Router>
 				<motion.div variants={item}>
 					<Navbar />
