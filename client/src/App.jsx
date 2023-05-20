@@ -5,7 +5,7 @@ import { Navbar, Top } from './components'
 
 function App() {
 	return (
-		<div className='w-screen bg-transparent'>
+		<div className='w-screen'>
 			<Router>
 				<Navbar />
 				<Top />
