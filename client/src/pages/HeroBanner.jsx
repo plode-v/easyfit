@@ -1,7 +1,7 @@
 const HeroBanner = () => {
     return (
         <div className="flex h-max lg:h-[70vh] flex-col md:flex-row w-full bg-green-500 items-center">
-            <div className="flex-1 flex flex-col w-full h-max text-white md:pl-10 pl-2">
+            <div className="flex-1 flex flex-col w-full h-max text-white md:pl-10 pl-2 py-10">
                 <h1 className="text-[70px] leading-none md:text-[100px] uppercase font-[700] tracking-tight">Fit made easy</h1>
                 <h4 className="text-[26px] md:text-[32px] font-[300] w-[90%]">start healthy habits now with EasyFit</h4>
                 <div className="flex items-start gap-1 md:gap-4 md:py-10 py-5 justify-center sm:justify-start lg:flex-row flex-col">
