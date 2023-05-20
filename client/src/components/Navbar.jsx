@@ -23,7 +23,7 @@ const Navbar = () => {
     }, []);
 
     useEffect(() => {
-        if (scrollData.lastY <= scrollData.y) {
+        if (scrollData.lastY < scrollData.y) {
             setShowNav(true);
         } else {
             setShowNav(false);
