@@ -2,7 +2,7 @@ import { HeroBanner, Features } from "./"
 
 const Home = () => {
     return (
-        <div>
+        <div className="flex flex-col">
             <HeroBanner />
             <Features />
         </div>
