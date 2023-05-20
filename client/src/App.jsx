@@ -8,9 +8,9 @@ function App() {
 	const item = {
 		hidden: {
 			opacity: 0,
-			y: -100,
+			y: -200,
 			transition: {
-				duration: 0.1
+				duration: 0.8
 			}
 		},
 		show: {
@@ -18,8 +18,7 @@ function App() {
 			y: 0,
 			transition: {
 				duration: 0.8,
-				staggerChildren: 0.2,
-				delayChildren: 0.1
+				staggerChildren: 0.5,
 			}
 		}
 	}
@@ -29,7 +28,6 @@ function App() {
 			<Router>
 				<motion.div variants={item}>
 					<Navbar />
-					<Top />
 				</motion.div>
 				<motion.div variants={item}>
 					<ConfigRoutes />
