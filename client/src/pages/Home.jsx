@@ -1,4 +1,5 @@
-import { HeroBanner, Features, Proposals, Contact, Footer } from "./"
+import { HeroBanner, Features, Proposals, Footer } from "./"
+import { Top } from "../components"
 
 const Home = () => {
     return (
@@ -6,8 +7,8 @@ const Home = () => {
             <HeroBanner />
             <Features />
             <Proposals />
-            <Contact />
             <Footer />
+            <Top />
         </div>
     )
 }

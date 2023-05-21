@@ -1,7 +1,7 @@
 const Proposals = () => {
     return (
-        <div className="h-screen">
-            Proposals
+        <div className="h-[50vh] bg-white z-10">
+            {/* Proposals */}
         </div>
     )
 }

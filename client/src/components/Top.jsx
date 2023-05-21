@@ -1,6 +1,6 @@
 const Top = () => {
   return (
-    <div className='h-[60px] bg-green-500' />
+    <div className='h-[400px] bg-transparent -z-20' />
   )
 }
 

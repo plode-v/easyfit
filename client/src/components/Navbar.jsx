@@ -22,14 +22,16 @@ const Navbar = () => {
     }, [prevScrollData]);
 
     return (
-        <nav className={`fixed top-0 bg-green-600 text-white h-[60px] w-screen flex justify-between items-center px-5 transition duration-300 ease-in-out ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
-            <h1 className="font-[600] text-[24px]">
-                <Link to="/">EasyFit</Link>
-            </h1>
-            <ul className="flex gap-4 font-[500] text-[16px]">
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/register">Signup</Link></li>
-            </ul>
+        <nav className={`fixed top-0 bg-green-600 text-white h-[60px] w-screen flex justify-center items-center px-5 transition duration-300 ease-in-out ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
+            <div className="flex w-full lg:w-[1300px] justify-between items-center">
+                <h1 className="font-[600] text-[24px]">
+                    <Link to="/">EasyFit</Link>
+                </h1>
+                <ul className="flex gap-4 font-[500] text-[16px]">
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/register">Signup</Link></li>
+                </ul>
+            </div>
         </nav>
     )
 }

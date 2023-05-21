@@ -3,8 +3,17 @@ import { motion } from "framer-motion"
 
 import { ConfigRoutes } from "./configs"
 import { Navbar} from './components'
+import { useEffect, useState } from 'react'
 
 function App() {
+
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false)
+		}, 1500);
+	}, []);
 	const item = {
 		hidden: {
 			opacity: 0,
@@ -24,14 +33,20 @@ function App() {
 	}
 
 	return (
-		<motion.div variants={item} initial="hidden" animate="show" className='w-full'>
-			<Router>
-				<motion.div variants={item}>
-					<Navbar />
-				</motion.div>
-				<ConfigRoutes />
-			</Router>
-		</motion.div>
+		<>
+		{!isLoading ? (
+			<motion.div variants={item} initial="hidden" animate="show" className='w-full'>
+				<Router>
+					<motion.div variants={item}>
+						<Navbar />
+					</motion.div>
+					<ConfigRoutes />
+				</Router>
+			</motion.div>
+		) : (
+			<h1>Loading</h1>
+		)}
+		</>
 	)
 }
 
