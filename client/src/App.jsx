@@ -2,7 +2,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { motion } from "framer-motion"
 
 import { ConfigRoutes } from "./configs"
-import { Navbar, Top } from './components'
+import { Navbar} from './components'
 
 function App() {
 	const item = {
@@ -24,14 +24,12 @@ function App() {
 	}
 
 	return (
-		<motion.div variants={item} initial="hidden" animate="show" className='w-screen'>
+		<motion.div variants={item} initial="hidden" animate="show" className='w-full'>
 			<Router>
 				<motion.div variants={item}>
 					<Navbar />
 				</motion.div>
-				<motion.div variants={item}>
-					<ConfigRoutes />
-				</motion.div>
+				<ConfigRoutes />
 			</Router>
 		</motion.div>
 	)

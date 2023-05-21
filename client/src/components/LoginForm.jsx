@@ -27,7 +27,7 @@ const LoginForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white h-2/3 w-1/4 flex flex-col items-center justify-evenly rounded-xl">
+        <form onSubmit={handleSubmit} className="bg-white sm:h-3/5 h-3/4 lg:w-1/4 w-3/4 flex flex-col items-center justify-evenly rounded-xl">
             <h1 className="flex font-[600] text-[32px] py-10">EasyFit</h1>
             <div className="flex flex-col w-3/4 gap-5">
                 <div className="flex flex-col">
@@ -49,7 +49,7 @@ const LoginForm = () => {
                         value={password}
                         onChange={e => setPassword(e.target.value)}    
                     />
-                    <Link to="/register" className="flex justify-end pt-2"><p className="text-[16px] underline">No account?</p></Link>
+                    <p className="flex justify-end pt-2"><Link to="/register" className="text-[12px] underline tracking-tight">No account?</Link></p>
                 </div>
                 <button className="rounded-lg py-3 flex items-center justify-center uppercase font-[700] bg-green-600 text-white hover:scale-105 duration-100" type="submit">Login</button>
             </div>

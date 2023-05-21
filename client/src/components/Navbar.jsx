@@ -28,6 +28,7 @@ const Navbar = () => {
             </h1>
             <ul className="flex gap-4 font-[500] text-[16px]">
                 <li><Link to="/login">Login</Link></li>
+                <li><Link to="/register">Signup</Link></li>
             </ul>
         </nav>
     )
