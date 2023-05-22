@@ -1,5 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import { motion } from "framer-motion"
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { ConfigRoutes } from "./configs"
 import { Navbar} from './components'
