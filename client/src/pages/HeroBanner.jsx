@@ -12,8 +12,8 @@ const HeroBanner = () => {
                         <img src={googleStore} alt="Google Playstore" className="h-[50px] lg:h-[60px] aspect-[3.375/1] hover:cursor-pointer"  />
                     </div>
                 </div>
-                <div className="flex-1 hidden lg:flex justify-end items-center mt-[350px] pr-10">
-                    <img src={iphone} alt="iphone" className="h-[730px] hover:-translate-y-[30px] duration-200" />
+                <div className="flex-1 relative hidden md:flex justify-end items-center lg:mt-[240px] lg:pr-10 pr-20">
+                    <img src={iphone} alt="iphone" className="h-[500px] lg:h-[750px] hover:-translate-y-[30px] duration-200" />
                 </div>
             </div>
         </div>
