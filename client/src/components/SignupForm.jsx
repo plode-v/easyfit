@@ -28,7 +28,7 @@ const SignupForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white sm:h-3/5 h-3/4 lg:w-1/4 w-3/4 flex flex-col items-center justify-evenly rounded-xl">
+        <form onSubmit={handleSubmit} className="bg-white sm:h-[600px] h-3/4 lg:w-1/4 w-3/4 flex flex-col items-center justify-evenly rounded-xl">
             <h1 className="flex font-[600] text-[32px] py-10">EasyFit</h1>
             <div className="flex flex-col gap-5 w-3/4">
                 <div className="flex flex-col">
