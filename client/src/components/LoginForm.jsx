@@ -1,34 +1,34 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const LoginForm = () => {
 
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handleLogin = async (e) => {
         try {
-            const response = await axios.post("http://localhost:3000/login", { username, password });
-            const { accessToken, refreshToken } = response.data;
+            e.preventDefault();
+            const response = await axios.post('http://localhost:3000/login', {
+                username,
+                password
+            });
 
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-
-            navigate("/");
-
-        } 
-        catch (err) {
-            console.log(err);
+            const userData = response.data;
+            login(userData.username);
+            navigate("/")
+        } catch (err) {
+            console.error(err)
         }
     }
 
     return (
         <div className="w-full lg:w-[1300px] justify-center flex items-center h-screen">
-            <form onSubmit={handleSubmit} className="bg-white sm:h-[550px] h-2/3 lg:w-1/2 w-4/5 flex flex-col items-center justify-evenly rounded-xl">
+            <form onSubmit={handleLogin} className="bg-white sm:h-[550px] h-2/3 lg:w-1/2 w-4/5 flex flex-col items-center justify-evenly rounded-xl">
                 <h1 className="flex font-[600] text-[32px] py-10">EasyFit</h1>
                 <div className="flex flex-col w-3/4 gap-5">
                     <div className="flex flex-col">
@@ -38,7 +38,7 @@ const LoginForm = () => {
                             type="text"
                             placeholder="John23"
                             value={username}
-                            onChange={e => setUsername(e.target.value)}    
+                            onChange={e => setUsername(e.target.value)}
                         />
                     </div>
                     <div className="flex flex-col pb-5">
@@ -48,7 +48,7 @@ const LoginForm = () => {
                             type="text"
                             placeholder="John123"
                             value={password}
-                            onChange={e => setPassword(e.target.value)}    
+                            onChange={e => setPassword(e.target.value)}
                         />
                         <p className="flex justify-end pt-2"><Link to="/register" className="text-[12px] underline tracking-tight">No account?</Link></p>
                     </div>

@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
 
     const [hideNav, setHideNav] = useState(false);
     const [prevScrollData, setPrevScrollData] = useState(0);
+    const { isAuthenticated, username, logout } = useContext(AuthContext);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -28,8 +30,14 @@ const Navbar = () => {
                     <Link className="text-white" to="/">EasyFit</Link>
                 </h1>
                 <ul className="flex gap-4 font-[500] text-[16px]">
-                    <li><Link className="text-white" to="/login">Login</Link></li>
-                    <li><Link className="text-white" to="/register">Signup</Link></li>
+                        {isAuthenticated ? (
+                            <li>{username}</li>
+                        ) : (
+                            <li><Link className="text-white" to="/login">Login</Link></li>
+                            )}
+                    <li>
+                        {isAuthenticated && <button onClick={logout}>Logout</button>}
+                    </li>
                 </ul>
             </div>
         </nav>

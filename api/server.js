@@ -3,10 +3,12 @@ const session = require("express-session");
 const passport = require("./configs/passport")
 const authRoutes = require("./routes/authRoutes")
 const connectDB = require("./configs/database");
+const cors = require("cors");
 
 const app = express();
 
 connectDB();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
