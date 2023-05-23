@@ -11,16 +11,10 @@ const SignupForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post("http://localhost:3000/register", ({ username, email, password }));
-            const { accessToken, refreshToken } = response.data;
-            
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-
-            navigate("/");
-
+            navigate("/login");
+            console.log(response);
         } catch (err) {
             console.error(err);
         }
