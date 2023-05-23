@@ -22,7 +22,7 @@ const LoginForm = () => {
             const userData = response.data;
             login(userData.username);
             setSuccess(true);
-            navigate("/")
+            navigate("/dashboard")
         } catch (err) {
             setSuccess(false);
             setUsername("")

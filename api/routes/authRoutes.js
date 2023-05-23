@@ -36,14 +36,20 @@ router.post("/login", passport.authenticate('local'), (req, res) => {
     });
 });
 
-router.get('/dashboard', isAuthenticated, (req, res) => {
+router.post('/dashboard', isAuthenticated, async (req, res) => {
+    try {
+        const { username } = req.body;
+        const user = await User.findOne({username});
+        const userId = user._id.toString();
 
-    // Use the userId to fetch the user's data from the database
-    const userId = req.user
-    console.log(userId)
 
-    const userData = {
-        message: "You are authorized to access this route",
+        const userData = {
+            message: user._id,
+            username: user.username,
+        }
+        res.json(userData);
+    } catch (err) {
+        console.log(err);
     }
 })
 
