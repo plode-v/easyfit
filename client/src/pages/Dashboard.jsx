@@ -1,32 +1,30 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
+import { FoodDetails } from "../components";
 
 const Dashboard = () => {
 
-    const [userData, setUserData] = useState(null);
+    const [foods, setFoods] = useState();
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get("http://localhost:3000/dashboard");
+        const fetchFoods = async () => {
+            const response = await fetch("http://localhost:4000/api/foods")
+            const json = await response.json();
 
-                setUserData(response);
-                console.log(response)
-            } catch (err) {
-                console.log("error fetching user data:", err);
+            if (response.ok) {
+                setFoods(json)
+                console.log(foods)
             }
         }
-        fetchUserData();
-    }, [])
+        fetchFoods();
+    }, [foods])
 
     return (
-        <div className="h-screen flex justify-center items-center">
-            <h1 className="flex">dashboard</h1>
-            {userData ? (
-                <p className="flex">{userData}</p>
-            ) : (
-                <p>Loading user data...</p>
-            )}
+        <div className="flex h-screen w-full items-center justify-center">
+            <div className="foods">
+                {foods && foods.map(food => {
+                    <FoodDetails key={food._id} food={food} />
+                })}
+            </div>
         </div>
     )
 }
