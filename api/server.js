@@ -32,10 +32,10 @@ const cors = require("cors")
 const app = express();
 app.use(cors());
 app.use(express.json())
-// app.use((req, res, next) => {
-//     console.log(req.path, req.method)
-//     next();
-// });
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next();
+});
 
 // routes
 app.use("/api/foods", foodRoutes)
@@ -44,8 +44,8 @@ app.use("/api/foods", foodRoutes)
 mongoose.connect(`mongodb+srv://admin:admin123@members.6d53gxi.mongodb.net/EasyFit?retryWrites=true&w=majority`)
     .then(() => {
         console.log("Connected to database")
-        app.listen(4000, () => {
-            console.log("listening for requests on port 4000")
+        app.listen(3000, () => {
+            console.log("listening for requests on port 3000")
         })
     })
     .catch(err => {
