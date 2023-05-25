@@ -1,16 +1,11 @@
 const FoodDetails = ({ food }) => {
 
     return (
-        <div>
-            <h4>{food.name}</h4>
-            <p><strong>Calories: </strong>{food.calories}</p>
-            <div>
-                <p><strong>Macros:</strong></p>
-                <p><strong>Fat: </strong>{food.macros.fat}</p>
-                <p><strong>Carbs: </strong>{food.macros.carb}</p>
-                <p><strong>Protein: </strong>{food.macros.protein}</p>
+        <div className="border h-max w-full py-2">
+            <div className="flex items-center justify-between">
+                <p className="">{food.name}</p>
+                <p>{food.calories}</p>
             </div>
-            <p><strong>Serving Size: </strong>{food.servingSize}</p>
         </div>
     )
 }

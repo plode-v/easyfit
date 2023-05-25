@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom"
-import { Home, Login, Register, Dashboard, CreateFood } from "../pages"
+import { Home, Login, Register, Dashboard, CreateFood, Search } from "../pages"
 
 const ConfigRoutes = () => {
     return (
@@ -9,6 +9,7 @@ const ConfigRoutes = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add-food" element={<CreateFood />} />
+            <Route path="/search" element={<Search />} />
             
         </Routes>
     )
