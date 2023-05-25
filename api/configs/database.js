@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_PASSWORD}@members.6d53gxi.mongodb.net/Users?retryWrites=true&w=majority`)
+        await mongoose.connect(`mongodb+srv://admin:admin123@members.6d53gxi.mongodb.net/EasyFit?retryWrites=true&w=majority`)
 
         console.log("Connected to MongoDB database");
     } catch (err) {
