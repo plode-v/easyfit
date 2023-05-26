@@ -10,19 +10,19 @@ const getFoods = async (req, res) => {
 
 // get a single food
 const getFood = async (req, res) => {
-    const { id } = req.params;
+    const { name } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "No such food" })
+    try {
+        const food = await Food.findOne({name})
+
+        if (!food){
+            return res.status(404).json({ error: "No such food" })
+        }
+
+        res.status(200).json(food);
+    } catch (err) {
+        res.status(500).json({ error: err.message })
     }
-
-    const food = await Food.findById(id)
-
-    if (!food) {
-        return res.status(404).json({ error: "No such food" })
-    }
-
-    res.status(200).json(food)
 }
 
 // create food 
