@@ -19,15 +19,9 @@ const createFoodLog = async (req, res) => {
 
 // Get all food logs
 const getFoodLog = async (req, res) => {
-    try {
-        const logs = await Log.find({}).sort({ date: -1 })
-
-        res.status(200).json(logs)
-
-    } catch (err) {
-        console.log(err)
-        res.status(500).json({ error: err.message})
-    }
+    let consumptionList = await Log.findOne({
+        user: req.user.id
+    }).populate('log.food', ['name', 'calories', 'servingSize'])
 
 }
 

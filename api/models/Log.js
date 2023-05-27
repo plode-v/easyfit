@@ -1,17 +1,23 @@
 const mongoose = require("mongoose")
 
 const logSchema = new mongoose.Schema({
-    foodIds: [
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
+    },
+    consumptions: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Food",
-            required: true
-        },
-    ],
-    date: {
-        type: Date,
-        default: Date.now()
-    }
+            food: {
+                type: mongoose.Schema.ObjectId,
+                ref: "Food",
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            }
+        }
+    ]
 });
 
 module.exports = mongoose.model("Log", logSchema);

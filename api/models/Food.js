@@ -23,10 +23,10 @@ const foodSchema = new mongoose.Schema({
             required: true
         },
     },
-    servingSize : {
-        type: Number,
-        required: true
+    date: {
+        type: Date,
+        default: Date.now
     }
-}, { timestamps: true});
+});
 
 module.exports = mongoose.model("Food", foodSchema);

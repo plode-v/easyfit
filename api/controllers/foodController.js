@@ -1,53 +1,24 @@
 const Food = require("../models/Food")
+const User = require("../models/User")
 const mongoose = require("mongoose")
 
 // get all foods
 const getFoods = async (req, res) => {
-    // const foods = await Food.find({}).sort({createdAt: -1})
-
-    // res.status(200).json(foods)
-    try {
-        const search = req.query.search || ""
-        const foods = await Food.find({ name: { $regex: search, $options: "i" } })
-        const total = await Food.countDocuments({
-            name: {$regex: search, $options: "i"}
-        });
-
-        const response = {
-            error: false,
-            total,
-            foods
-        }
-
-        res.status(200).json(response);
-
-    } catch (err) {
-        console.log(err)
-        res.status(500).json({ error: err.message })
-    }
+    const foods = await Food.find({})
+    res.status(200).json(foods)
 }
-
-// get a single food
-// const getFood = async (req, res) => {
-//     const { name } = req.query;
-
-//     try {
-//         const food = await Food.findOne({name})
-
-//         if (!food){
-//             return res.status(404).json({ error: "No such food" })
-//         }
-
-//         res.status(200).json(food);
-//     } catch (err) {
-//         res.status(500).json({ error: err.message })
-//     }
-// }
 
 // create food 
 const createFood = async (req, res) => {
+    const { name, calories, macros } = req.body;
+    let user = req.user.id;
+
     try {
-        const { name, calories, macros, servingSize } = req.body;
+        user = await User.findById(user);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
         const newFood = new Food({
             name,
             calories,
