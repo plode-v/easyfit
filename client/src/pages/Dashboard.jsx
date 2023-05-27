@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { FoodDetails } from "../components";
+import { Calories, FoodLogs } from "../components/dashboard"
 
 const Dashboard = () => {
 
@@ -7,7 +7,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchFoods = async () => {
-            const response = await fetch("http://localhost:3000/api/foods")
+            const response = await fetch("http://localhost:3000/api/logs")
             const json = await response.json();
 
             if (response.ok) {
@@ -18,17 +18,15 @@ const Dashboard = () => {
     }, [])
 
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-white mt-[60px]">
-            <div className="w-full xl:w-[1000px] flex h-full">
-                <div className="w-2/3">
-                    {foods && foods.map(food => (
-                        <FoodDetails key={food._id} food={food} />
-                    ))}
+        <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
+            <div className="w-full lg:w-[1000px] flex-col flex">
+                <div className="flex justify-center items-center">
+                    <Calories />
                 </div>
-                <div className="w-1/3">
-                    hello
-                </div>
+                <div className="flex h-full w-full justify-center">
+                    <FoodLogs />
 
+                </div>
             </div>
         </div>
     )

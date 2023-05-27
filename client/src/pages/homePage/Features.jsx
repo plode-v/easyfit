@@ -1,7 +1,7 @@
 import { TbNotes } from "react-icons/tb";
 import { GiMeal, GiBodyBalance } from "react-icons/gi";
 
-import { FeatureIcon } from "../components"
+import { FeatureIcon } from "../../components"
 
 const Features = () => {
     return (

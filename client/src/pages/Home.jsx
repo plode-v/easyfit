@@ -1,4 +1,4 @@
-import { HeroBanner, Features, Proposals, Footer } from "./"
+import { HeroBanner, Features, Footer, Proposals } from "./homePage"
 import { Top } from "../components"
 
 const Home = () => {

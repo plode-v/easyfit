@@ -1,12 +1,7 @@
-export { default as HeroBanner } from "./HeroBanner"
 export { default as Login } from "./Login"
 export { default as Register } from "./Register"
 export { default as Profile } from "./Profile"
-export { default as Home } from "./Home";
-export { default as Features } from "./Features"
-export { default as Proposals } from "./Proposals"
-export { default as Contact } from "./Contact"
-export { default as Footer } from "./Footer"
 export { default as Dashboard } from "./Dashboard"
 export { default as CreateFood } from "./CreateFood"
 export { default as Search } from "./Search"
+export { default as Home } from "./Home"

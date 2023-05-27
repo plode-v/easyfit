@@ -1,4 +1,4 @@
-import { iphone, appleStore, googleStore } from "../assets"
+import { iphone, appleStore, googleStore } from "../../assets"
 
 const HeroBanner = () => {
     return (

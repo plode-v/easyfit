@@ -1,5 +1,5 @@
 import Carousel from "react-bootstrap/Carousel"
-import { carousel } from "../constants"
+import { carousel } from "../../constants"
 
 const Proposals = () => {
     return (

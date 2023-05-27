@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState("")
-    const [result, setResult] = useState(null)
+    const [result, setResult] = useState([])
 
     const handleSearch = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/api/foods/${searchQuery}`)
+            const response = await fetch(`http://localhost:3000/api/foods?search=${searchQuery}`)
             const data = await response.json();
 
             if (response.ok) {
                 setResult(data);
             } else {
-                setResult(null)
+                setResult([])
                 console.log("food not found")
             }
         } catch (err) {
@@ -35,15 +34,18 @@ const Search = () => {
                 />
                 <button className="border" type="submit">search</button>
             </form>
-
-            {result && (
-                <div>
-                    <h3>Search Result</h3>
-                    <p>Name: {result.name}</p>
-                    <p>Calories: {result.calories}</p>
-                    <Link to={`http://localhost:3000/api/foods/${result.name}`}>View Details</Link>
-                </div>
-            )}
+            <div>
+                {result !== null && (
+                    result.foods.length > 0 ? (
+                        result.foods.map(food => (
+                            <div key={food._id}>
+                                <p>Name: {food.name}</p>
+                                <p>Calories: {food.calories}</p>
+                            </div>
+                        ))
+                    ) : <p>no food found</p>
+                )}
+            </div>
         </div>
     )
 }
