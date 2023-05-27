@@ -31,7 +31,29 @@ const getFoodLog = async (req, res) => {
 
 }
 
+const updateFoodLog = async (req, res) => {
+    const { logId } = req.params;
+    const { foodName } = req.body;
+
+    try {
+        const log = await Log.findOne(logId);
+
+        if (!log) {
+            return res.status(404).json({ error: "Log not found" })
+        }
+
+        log.foodIds.push(foodName);
+        const updatedLog = await Log.save();
+
+        res.json(updatedLog)
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 module.exports = {
     createFoodLog,
-    getFoodLog
+    getFoodLog,
+    updateFoodLog
 }
