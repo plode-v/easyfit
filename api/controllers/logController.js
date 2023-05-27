@@ -11,7 +11,7 @@ const getLogList = async (req, res) => {
             id: consumption.id,
         }));
 
-        res.json(consumptions);
+        res.json(logs);
 }
 
 const updateLogList = async (req, res) => {
@@ -33,4 +33,9 @@ const updateLogList = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message })
     }
+}
+
+module.exports = {
+    getLogList,
+    updateLogList
 }

@@ -1,13 +1,10 @@
 const express = require('express');
-const { createFoodLog, getFoodLog, updateFoodLog } = require("../controllers/userFoodLogController")
+const { getLogList, updateLogList } = require('../controllers/logController');
 const router = express.Router();
 
 // get all log
-router.get("/", getFoodLog)
+router.get("/list", getLogList);
 
-// create log
-router.post("/", createFoodLog)
-
-router.patch("/:logId", updateFoodLog)
+router.put("/list", updateLogList)
 
 module.exports = router;
