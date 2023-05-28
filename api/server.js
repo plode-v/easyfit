@@ -1,7 +1,8 @@
 const express = require("express")
-const { foodRoutes, logRoutes } = require("./routes")
+const { foodRoutes, logRoutes, authRoutes } = require("./routes")
 const mongoose = require("mongoose")
 const cors = require("cors")
+const bodyParser = require('body-parser');
 require("dotenv").config();
 
 const app = express();
@@ -11,10 +12,12 @@ app.use((req, res, next) => {
     console.log(req.path, req.method)
     next();
 });
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // routes
-app.use("/api/foods", foodRoutes)
-app.use("/api/logs", logRoutes)
+app.use("/api/foods", foodRoutes);
+app.use("/api/logs", logRoutes);
+app.use("/api/users", authRoutes);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
