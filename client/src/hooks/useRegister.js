@@ -1,45 +1,51 @@
-import { useState } from "react"
-import { useAuthContext } from "."
+import { useState } from "react";
+import useAuthContext from "./useAuthContext"
+import { useNavigate } from "react-router-dom";
 
 const useRegister = () => {
+    const navigate = useNavigate();
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const [success, setSuccess] = useState(null)
     const { dispatch } = useAuthContext();
 
-    const register = async (email, password, username) => {
+    const register = async (username, email, password) => {
         setIsLoading(false);
-        setSuccess(false);
-        setError(false);
+        setError(null);
 
         const response = await fetch("http://localhost:3000/api/users/register", {
             method: "POST",
-            headers: {"Content-Type" : "application/json"},
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ username, email, password })
-        })
+        });
         const data = await response.json();
 
         if (!response.ok) {
             setIsLoading(false);
-            setError(data.error)
-        } else {
-            setIsLoading(true);
+            setError(data.error);
+            console.log(error)
+            setSuccess(false)
+        }
+        if (response.ok) {
+            setIsLoading(true)
             localStorage.setItem("user", JSON.stringify(data))
 
-            // update useContext
-            dispatch({ type: "LOGIN", payload: data})
+            dispatch({ type: "LOGIN", payload: data })
             setIsLoading(false);
-            setSuccess(true);
+            setError(null)
+            setSuccess("Register Successful")
+            setTimeout(() => {
+                navigate('/')
+            }, 1000);
         }
     }
 
     return {
+        register,
         error,
         isLoading,
-        success,
-        register
+        success
     }
-
 }
 
-export default useRegister
+export default useRegister;

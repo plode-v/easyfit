@@ -38,7 +38,7 @@ userSchema.statics.register = async function(email, password, username) {
     if (exists) {
         throw Error("Email already exists")
     }
-    const hashedPassword = bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await this.create({
         username,
