@@ -1,36 +1,30 @@
-import { createContext, useState } from "react";
+import { useReducer, createContext } from "react";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [username, setUsername] = useState("");
-
-    const login = (username) => {
-        // login logic using axios and whatnot (api call to verify credentials).
-        // If login successful, update the authenticated state
-        setIsAuthenticated(true);
-        setUsername(username);
-    };
-
-    const logout = () => {
-        // Perform logout logic (clearing local storage, API call to invalidate token)
-        setIsAuthenticated(false);
-        setUsername("");
-    };
-
-    const authContextValue = {
-        isAuthenticated,
-        username,
-        login,
-        logout,
-    };
-
-    return (
-        <AuthContext.Provider value={authContextValue}>
-            {children}
-        </AuthContext.Provider>
-    );
+const authReducer = (state, action) => {
+    switch (action.type) {
+        case "LOGIN":
+            return { user: action.payload }
+        case "LOGOUT":
+            return { user: null }
+        default:
+            return state;
+    }
 };
 
-export { AuthContext, AuthProvider };
+const AuthContextProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(authReducer, {
+        user: null
+    });
+
+    console.log("AuthContext state: ", state);
+
+    return (
+        <AuthContext.Provider value={{ ...state, dispatch }}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
+
+export { AuthContext, AuthContextProvider}

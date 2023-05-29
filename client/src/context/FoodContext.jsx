@@ -17,7 +17,6 @@ export const foodsReducer = (state, action) => {
             return state
     }
 }
-
 export const FoodsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(foodsReducer, {
         foods: null

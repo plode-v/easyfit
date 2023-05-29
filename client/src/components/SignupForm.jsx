@@ -1,26 +1,19 @@
-import axios from "axios"
-import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useRegister } from "../hooks"
 
 const SignupForm = () => {
 
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
+    const { register, isLoading } = useRegister();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:3000/register", ({ username, email, password }));
-            navigate("/login");
-            console.log(response);
-        } catch (err) {
-            console.error(err);
-        }
 
+        await register(username, email, password)
     }
-
     return (
         <div className="flex justify-center items-center w-full lg:w-[1300px] h-screen">
             <form onSubmit={handleSubmit} className="bg-white sm:h-[600px] h-3/4 lg:w-1/2 w-3/4 flex flex-col items-center justify-evenly rounded-xl">
@@ -39,7 +32,7 @@ const SignupForm = () => {
                         <input type="text" placeholder="password" value={password} onChange={e => setPassword(e.target.value)}className="border py-2 px-3 rounded-md focus:outline-none" />
                         <p className="flex justify-end pt-2"><Link to="/login" className="text-[12px] underline tracking-tight">Already have an account?</Link></p>
                     </div>
-                    <button className="rounded-lg py-3 flex items-center justify-center uppercase font-[700] bg-green-600 text-white hover:scale-105 duration-100" type="submit">Signup</button>
+                    <button className="rounded-lg py-3 flex items-center justify-center uppercase font-[700] bg-green-600 text-white hover:scale-105 duration-100" type="submit" disabled={isLoading}>Signup</button>
                 </div>
             </form>
         </div>
