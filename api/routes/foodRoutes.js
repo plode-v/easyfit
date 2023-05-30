@@ -1,12 +1,15 @@
 const express = require("express")
-const { getFoods, createFood, deleteFood, updateFood } = require("../controllers/foodController")
+const { getFoods, getFood, createFood, deleteFood, updateFood } = require("../controllers/foodController")
+const auth = require('../middleware/auth');
 const router = express.Router();
+
+router.use(auth);
 
 // get all food
 router.get("/", getFoods);
 
 // get a single food
-// router.get("/:name", getFood);
+router.get("/:name", getFood);
 
 // create new food
 router.post("/", createFood)

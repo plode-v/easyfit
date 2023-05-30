@@ -9,9 +9,13 @@ export const foodsReducer = (state, action) => {
             return {
                 foods: action.payload
             }
-        case "CREATE_FOODS":
+        case "CREATE_FOOD":
             return {
                 foods: [action.payload, ...state.foods]
+            }
+        case "DELETE_FOOD":
+            return {
+                foods: state.foods.filter((f) => f._id !== action.payload._id)
             }
         default:
             return state

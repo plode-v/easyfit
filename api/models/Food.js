@@ -9,24 +9,9 @@ const foodSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    macros: {
-        fat: {
-            type: Number,
-            required: true
-        },
-        carb: {
-            type: Number,
-            required: true
-        },
-        protein: {
-            type: Number,
-            required: true
-        },
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    carb: Number,
+    protein: Number,
+    fat: Number,
 });
 
 module.exports = mongoose.model("Food", foodSchema);

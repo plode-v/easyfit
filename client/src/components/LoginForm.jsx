@@ -30,7 +30,7 @@ const LoginForm = () => {
                         <input 
                             className="border py-2 px-3 rounded-md focus:outline-none"
                             type="email"
-                            placeholder="John23"
+                            placeholder="john@doe.com"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                         />
@@ -40,7 +40,7 @@ const LoginForm = () => {
                         <input 
                             className="border py-2 px-3 rounded-md focus:outline-none"
                             type="password"
-                            placeholder="John123"
+                            placeholder="John123!"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />

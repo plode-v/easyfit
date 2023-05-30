@@ -20,6 +20,10 @@ const profileSchema = new mongoose.Schema({
         type: String,
         enum: ["male", "female"],
         required: true
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 });
 

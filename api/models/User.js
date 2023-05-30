@@ -14,10 +14,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         minLength: 6
-    },
-    profile: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Profile"
     }
 }, { timestamps: true })
 

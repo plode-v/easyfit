@@ -1,22 +1,20 @@
 const express = require("express")
-const { foodRoutes, logRoutes, authRoutes, userRoutes } = require("./routes")
+const { foodRoutes, userRoutes } = require("./routes")
 const mongoose = require("mongoose")
 const cors = require("cors")
-const bodyParser = require('body-parser');
 require("dotenv").config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next();
 });
-app.use(bodyParser.urlencoded({ extended: false }))
 
 // routes
 app.use("/api/foods", foodRoutes);
-app.use("/api/logs", logRoutes);
 app.use("/api/users", userRoutes);
 
 // connect to db

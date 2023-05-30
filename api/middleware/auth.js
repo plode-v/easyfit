@@ -1,20 +1,25 @@
-const jwt = require("jsonwebtoken")
+const jwt = require('jsonwebtoken')
+const User = require("../models/User")
 require("dotenv").config();
 
-const auth = (req, res, next) => {
-    const token = req.header("x-auth-token");
+const auth = async (req, res, next) => {
+    // verify
+    const { authorization } = req.headers;
 
-    if (!token) {
-        return res.status(400).json({ message: "You are unauthorized" });
+    if (!authorization) {
+        return res.status(401).json({ error: "Authorization token required" })
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.SECRET);
+    const token = authorization.split(" ")[1];
 
-        req.user = decoded.user;
+    try {
+        const { _id } = jwt.verify(token, process.env.SECRET)
+
+        req.user = await User.findOne({ _id }).select("_id");
         next();
+
     } catch (err) {
-        res.status(401).json({ error: err.message })
+        res.status(401).json({ error: "Request is not authorized" })
     }
 }
 
