@@ -12,6 +12,6 @@ const foodSchema = new mongoose.Schema({
     carb: Number,
     protein: Number,
     fat: Number,
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("Food", foodSchema);

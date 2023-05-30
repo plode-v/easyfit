@@ -3,21 +3,40 @@ const mongoose = require("mongoose")
 
 // get all foods
 const getFoods = async (req, res) => {
-    const user_id = req.user._id;
-    const foods = await Food.find({user_id}).sort({ createdAt: -1 });
+    
+    try {
+        const search = req.query.search || "";
+        
+        // const foods = await Food.find({}).sort({ createdAt: -1 });
+        const foods = await Food.find({name: {$regex:search, $options: "i"}})
+        const total = await Food.countDocuments({name: {$regex: search, $options: "i"}});
 
-    res.status(200).json(foods)
+        const response = {
+            error: false,
+            total,
+            foods
+        }
+
+        res.status(200).json(response)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+
 }
 
 const getFood = async (req, res) => {
-    const { id } = req.params;
-    const food = await Food.findById(id);
+    const { name } = req.params;
+    try {
+        const food = await Food.findOne({name});
+    
+        if (!food) {
+            return res.status(404).json({ error: "No such food" });
+        }
 
-    if (!mongoose.Types.ObjectId.isValid(id) || !food) {
-        return res.status(404).json({ error: "No such food" });
+        res.status(200).json(food);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
-
-    res.status(200).json(food);
 }
 
 // create food 

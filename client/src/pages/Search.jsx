@@ -1,20 +1,30 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks";
+import { SearchResult } from "../components";
 
 const Search = () => {
-    const [searchQuery, setSearchQuery] = useState("")
-    const [result, setResult] = useState([])
+    const [searchQuery, setSearchQuery] = useState(null)
+    const [result, setResult] = useState(undefined)
+    const { user } = useAuthContext();
 
     const handleSearch = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/api/foods?search=${searchQuery}`)
-            const data = await response.json();
+            if (!searchQuery) {
+                return
+            }
+            const response = await fetch(`http://localhost:3000/api/foods?search=${searchQuery}`, {
+                headers: {
+                    "Authorization": `Bearer ${user.token}` 
+                }
+            })
+            const data = await response.json()
 
             if (response.ok) {
-                setResult(data);
+                setResult(data.foods);
             } else {
-                setResult([])
+                setResult(null)
                 console.log("food not found")
             }
         } catch (err) {
@@ -35,16 +45,9 @@ const Search = () => {
                 <button className="border" type="submit">search</button>
             </form>
             <div>
-                {result !== null && (
-                    result.foods.length > 0 ? (
-                        result.foods.map(food => (
-                            <div key={food._id}>
-                                <p>Name: {food.name}</p>
-                                <p>Calories: {food.calories}</p>
-                            </div>
-                        ))
-                    ) : <p>no food found</p>
-                )}
+                {result && result.map(item => (
+                    <SearchResult key={item.key} name={item.name} calories={item.calories} />
+                ))}
             </div>
         </div>
     )
