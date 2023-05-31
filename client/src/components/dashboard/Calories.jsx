@@ -1,6 +1,6 @@
 const Calories = () => {
   return (
-    <div className="flex w-full items-center justify-center lg:w-[500px]">
+    <div className="flex w-full items-center justify-center lg:w-[600px]">
       <div className="flex-1 items-center justify-center flex-col flex h-max py-3">
           <span className="lg:text-[30px] text-[24px] font-[700]">2,000</span>
           <span className="lg:text-[20px] text-[14px]">Goal</span>

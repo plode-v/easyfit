@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { useAuthContext } from "../hooks";
-import { SearchResult } from "../components";
+import { SearchResult } from "../components"
 
 const Search = () => {
-    const [searchQuery, setSearchQuery] = useState(null)
-    const [result, setResult] = useState(undefined)
+    const [searchQuery, setSearchQuery] = useState("")
+    const [result, setResult] = useState("")
     const { user } = useAuthContext();
+    const [show, setShow] = useState(false)
+
+    const handleClose = () => {
+        setShow(false);
+    }
+
+    const handleShow = () => {
+        setShow(true);
+    }
 
     const handleSearch = async (e) => {
         e.preventDefault();
 
         try {
-            if (!searchQuery) {
-                return
-            }
             const response = await fetch(`http://localhost:3000/api/foods?search=${searchQuery}`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}` 
@@ -23,9 +29,9 @@ const Search = () => {
 
             if (response.ok) {
                 setResult(data.foods);
+                handleShow();
             } else {
-                setResult(null)
-                console.log("food not found")
+                setResult("");
             }
         } catch (err) {
             console.error(err);
@@ -33,22 +39,23 @@ const Search = () => {
     }
 
     return (
-        <div className="flex items-center justify-center">
-            <form onSubmit={handleSearch} className="flex flex-col">
+        <div className="flex items-center justify-center my-[50px] mx-[30px]">
+            <form onSubmit={handleSearch} className="flex flex-col w-full">
                 <input 
                     type="text" 
                     placeholder="search"    
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="border p-2"
+                    className="border p-2 w-full focus:outline-none"
                 />
-                <button className="border" type="submit">search</button>
+                <button className="w-max justify-center items-center mt-[10px] py-2 px-3 text-[18px] font-[600] bg-green-700 text-white rounded-md" type="submit">search</button>
             </form>
-            <div className="fixed top-[50%] right-[50%] translate-x-[150px] -translate-y-[250px] flex justify-center bg-opacity-50 bg-black w-[300px] h-[500px]">
-                {result && result.map(item => (
-                    <SearchResult key={item.key} name={item.name} calories={item.calories} />
-                ))}
-            </div>
+            
+            <SearchResult
+                result={result}
+                handleClose={handleClose}
+                show={show}
+            />
         </div>
     )
 }
