@@ -33,7 +33,7 @@ const Search = () => {
     }
 
     return (
-        <div className="h-[90vh] flex items-center justify-center">
+        <div className="flex items-center justify-center">
             <form onSubmit={handleSearch} className="flex flex-col">
                 <input 
                     type="text" 
@@ -44,7 +44,7 @@ const Search = () => {
                 />
                 <button className="border" type="submit">search</button>
             </form>
-            <div>
+            <div className="fixed top-[50%] right-[50%] translate-x-[150px] -translate-y-[250px] flex justify-center bg-opacity-50 bg-black w-[300px] h-[500px]">
                 {result && result.map(item => (
                     <SearchResult key={item.key} name={item.name} calories={item.calories} />
                 ))}

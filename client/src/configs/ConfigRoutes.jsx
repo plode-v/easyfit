@@ -8,9 +8,9 @@ const ConfigRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={!user ? <Home /> : <Dashboard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/login" element={user ? <Dashboard /> : <Login />} />
+            <Route path="/register" element={user ? <Dashboard /> : <Register />} />
+            <Route path="/dashboard" element={!user ? <Dashboard /> : <Login />} />
             <Route path="/add-food" element={<CreateFood />} />
             <Route path="/search" element={<Search />} />
             

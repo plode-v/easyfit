@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Calories, FoodDetails } from "../components/dashboard"
 import { useAuthContext, useFoodContext } from "../hooks"
+import Search from "./Search"
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [result, setResult] = useState(null);
     const { user } = useAuthContext();
     const { foods, dispatch } = useFoodContext();
@@ -35,13 +38,13 @@ const Dashboard = () => {
                 </div>
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
-
+                    </div>
+                    <div className="flex flex-col border w-1/3">
+                        {/* search for food here */}
+                        <Search />
                         <button className="border w-max m-3 p-2 rounded-md bg-green-800 text-white font-[600] capitalize">
                             Add Food
                         </button>
-                    </div>
-                    <div className="flex flex-col border w-1/3">
-                        {/* create food */}
                     </div>
                 </div>
             </div>
