@@ -14,3 +14,5 @@ export const footerItems = [
     "Contact",
     "Terms",
 ]
+
+export const port = "http://localhost:8080"

@@ -1,7 +1,22 @@
 import Modal from "react-bootstrap/Modal";
 import { FiPlus } from "react-icons/fi";
+import { useLogsContext } from "../hooks";
 
 const SearchResult = ({ handleClose, result, show }) => {
+
+    const { dispatch } = useLogsContext();
+
+    const handleClick = (food) => {
+
+        dispatch({
+            type: "ADD_LOGS",
+            payload: food
+        });
+        handleClose();
+        console.log(food)
+
+    }
+
     return (
             <Modal show={show} onHide={handleClose} scrollable={true}>
             <Modal.Header className="flex-col flex items-start">
@@ -19,7 +34,9 @@ const SearchResult = ({ handleClose, result, show }) => {
                         </div>
                         <div className="flex text-white gap-2">
                             <button>View</button>
-                            <button className=""><FiPlus className="bg-white p-1 text-green-600 h-[30px] w-[30px] rounded-full" /></button>
+                            <button 
+                                onClick={() => handleClick(item)}
+                            ><FiPlus className="bg-white p-1 text-green-600 h-[30px] w-[30px] rounded-full" /></button>
                         </div>
                     </div>
                 </div>

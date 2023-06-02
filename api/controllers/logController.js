@@ -9,5 +9,4 @@ const getLogs = async (req, res) => {
 }
 
 const addFoodToLog = async (req, res) => {
-
 }

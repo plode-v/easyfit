@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuthContext from "./useAuthContext"
 import { useNavigate } from "react-router-dom";
+import { port } from "../constants";
 
 const useRegister = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const useRegister = () => {
         setIsLoading(false);
         setError(null);
 
-        const response = await fetch("http://localhost:3000/api/users/register", {
+        const response = await fetch(`${port}/api/users/register`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ username, email, password })

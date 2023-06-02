@@ -1,17 +1,21 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import { Calories } from "../components/dashboard"
-import { useAuthContext, useFoodContext } from "../hooks"
+import { useAuthContext, useFoodContext, useLogsContext } from "../hooks"
 import Search from "./Search"
+import { port } from "../constants"
 
 const Dashboard = () => {
     // const [result, setResult] = useState(null);
     const { user } = useAuthContext();
-    const { dispatch } = useFoodContext();
+    const { dispatch: foodDispatch } = useFoodContext();
+    const { dispatch: logDispatch } = useLogsContext();
+
+    const [result, setResult] = useState(null);
 
     useEffect(() => {
         const fetchFoods = async () => {
-            const response = await fetch("http://localhost:3000/api/logs", {
+            const response = await fetch(`${port}/api/logs`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
@@ -19,7 +23,10 @@ const Dashboard = () => {
             const data = await response.json();
 
             if (response.ok) {
-                dispatch({ type: "SET_FOODS", payload: data });
+                foodDispatch({ type: "SET_FOODS", payload: data });
+                logDispatch({ type: "SET_LOGS", payload: data });
+                setResult(data);
+                console.log(result);
             }
         }
 
@@ -27,7 +34,7 @@ const Dashboard = () => {
             fetchFoods();
         }
 
-    }, [dispatch, user])
+    }, [foodDispatch, user, logDispatch, result])
 
     return (
         <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
@@ -37,6 +44,7 @@ const Dashboard = () => {
                 </div>
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
+
                     </div>
                     <div className="flex flex-col w-1/3 h-full">
                         {/* search for food here */}
