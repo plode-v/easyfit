@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import { Calories } from "../components/dashboard"
 import { useAuthContext, useFoodContext, useLogsContext } from "../hooks"
 import Search from "./Search"
-import { port } from "../constants"
 
 const Dashboard = () => {
     // const [result, setResult] = useState(null);
@@ -15,7 +14,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchFoods = async () => {
-            const response = await fetch(`${port}/api/logs`, {
+            const response = await fetch(`/api/logs`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }

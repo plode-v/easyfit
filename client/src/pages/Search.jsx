@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "../hooks";
 import { SearchResult } from "../components"
-import { port } from "../constants";
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState("")
@@ -21,7 +20,7 @@ const Search = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${port}/api/foods?search=${searchQuery}`, {
+            const response = await fetch(`/api/foods?search=${searchQuery}`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}` 
                 }

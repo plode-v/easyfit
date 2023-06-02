@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useAuthContext } from "../hooks"
-import { port } from "../constants";
 
 const Profile = () => {
     const { user } = useAuthContext();
     const [profile, setProfile] = useState(null);
 
     const handleUser = async () => {
-        const response = await fetch(`${port}/api/users`, {
+        const response = await fetch(`/api/users`, {
             headers: {
                 "Authorization": `Bearer ${user.token}`
             }

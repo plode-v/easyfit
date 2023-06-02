@@ -1,7 +1,6 @@
 import useAuthContext from "./useAuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { port } from "../constants";
 
 const useLogin = () => {
     const navigate = useNavigate();
@@ -12,7 +11,7 @@ const useLogin = () => {
 
     const login = async (email, password) => {
 
-        const response = await fetch(`${port}/api/users/login`, {
+        const response = await fetch(`/api/users/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ email, password })
