@@ -5,6 +5,7 @@ const cors = require("cors")
 require("dotenv").config();
 
 const app = express();
+const PORT = 4000;
 
 app.use(cors());
 app.use(express.json())
@@ -21,8 +22,8 @@ app.use("/api/users", userRoutes);
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("Connected to database")
-        app.listen(3000, () => {
-            console.log("listening for requests on port 3000")
+        app.listen(PORT, () => {
+            console.log(`listening for requests on port ${PORT}`)
         })
     })
     .catch(err => {
