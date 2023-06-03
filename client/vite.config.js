@@ -4,15 +4,14 @@ import { config } from "dotenv"
 config();
 
 // eslint-disable-next-line no-undef
-const API = import.meta.env.VITE_API_KEY
-const envApi = process.env.VITE_API_KEY;
+const API = process.env.VITE_API_KEY || '';
 
 export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
       '/api': {
-        target: API || envApi,
+        target: API,
         changeOrigin: true,
         secure: false
       }
