@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT
+const localPort = 4000;
 
 app.use(express.json())
 app.use((req, res, next) => {
@@ -20,8 +21,8 @@ app.use("/api/users", userRoutes);
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("Connected to database")
-        app.listen(PORT, () => {
-            console.log(`listening for requests on port ${PORT}`)
+        app.listen(PORT || localPort, () => {
+            console.log(`listening for requests on port ${PORT || localPort}`)
         })
     })
     .catch(err => {

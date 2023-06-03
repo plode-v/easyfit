@@ -1,6 +1,7 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import { motion } from "framer-motion"
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Analytics } from "@vercel/analytics/react";
 
 import { ConfigRoutes } from "./configs"
 import { Navbar} from './components'
@@ -29,6 +30,7 @@ function App() {
 			<Router>
 				<motion.div variants={item}>
 					<Navbar />
+					<Analytics />
 				</motion.div>
 				<ConfigRoutes />
 			</Router>
