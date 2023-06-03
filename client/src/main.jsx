@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 		<FoodsContextProvider>
 			<LogsContextProvider>
 				<App />
-				{console.log(import.meta.env.REACT_APP_API_KEY)}
+				{console.log(import.meta.env.VITE_API_KEY)}
 			</LogsContextProvider>
 		</FoodsContextProvider>
 	</AuthContextProvider>
