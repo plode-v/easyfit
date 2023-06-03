@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 require("dotenv").config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT
 
 app.use(express.json())
 app.use((req, res, next) => {
