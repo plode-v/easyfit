@@ -3,37 +3,39 @@ import { useEffect, useState } from "react"
 import { Calories } from "../components/dashboard"
 import { useAuthContext, useFoodContext, useLogsContext } from "../hooks"
 import Search from "./Search"
+import axios from "axios"
+import { apiKey } from "../constants"
+import { FoodDetails } from "../components"
 
 const Dashboard = () => {
     // const [result, setResult] = useState(null);
     const { user } = useAuthContext();
     const { dispatch: foodDispatch } = useFoodContext();
-    const { dispatch: logDispatch } = useLogsContext();
+    const { dispatch: logDispatch, logs } = useLogsContext();
 
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState();
 
     useEffect(() => {
         const fetchFoods = async () => {
-            const response = await fetch(`/api/logs`, {
+            const response = await fetch(//`${apiKey}/api/logs`
+            "http://localhost:3000/api/logs", {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
             })
             const data = await response.json();
+            console.log(data.allLogs);
+            
 
-            if (response.ok) {
-                foodDispatch({ type: "SET_FOODS", payload: data });
-                logDispatch({ type: "SET_LOGS", payload: data });
-                setResult(data);
-                console.log(result);
+            if (response.ok){
+                setResult(data.allLogs)
+                console.log(result)
             }
-        }
 
-        if (user) {
-            fetchFoods();
         }
+        fetchFoods();
 
-    }, [foodDispatch, user, logDispatch, result])
+    },[])
 
     return (
         <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
@@ -43,7 +45,8 @@ const Dashboard = () => {
                 </div>
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
-
+                        {/* <FoodDetails result={result} /> */}
+                        {/* <FoodDetails result={result} /> */}
                     </div>
                     <div className="flex flex-col w-1/3 h-full">
                         {/* search for food here */}

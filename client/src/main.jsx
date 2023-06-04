@@ -7,11 +7,10 @@ import { LogsContextProvider } from './context/LogContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<AuthContextProvider>
-		<FoodsContextProvider>
-			<LogsContextProvider>
+		<LogsContextProvider>
+			<FoodsContextProvider>
 				<App />
-				{console.log(import.meta.env.VITE_API_KEY)}
-			</LogsContextProvider>
-		</FoodsContextProvider>
+			</FoodsContextProvider>
+		</LogsContextProvider>
 	</AuthContextProvider>
 )

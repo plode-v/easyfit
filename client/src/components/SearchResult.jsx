@@ -4,7 +4,7 @@ import { useLogsContext } from "../hooks";
 
 const SearchResult = ({ handleClose, result, show }) => {
 
-    const { dispatch } = useLogsContext();
+    const { dispatch, logs } = useLogsContext();
 
     const handleClick = (food) => {
 
@@ -13,7 +13,7 @@ const SearchResult = ({ handleClose, result, show }) => {
             payload: food
         });
         handleClose();
-        console.log(food)
+        console.log(logs)
 
     }
 

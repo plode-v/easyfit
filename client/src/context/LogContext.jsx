@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const LogsContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const logReducer = (state, action) => {
     switch (action.type) {
         case "SET_LOGS" :

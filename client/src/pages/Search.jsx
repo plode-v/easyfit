@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../hooks";
 import { SearchResult } from "../components"
+import { apiKey } from "../constants"
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState("")
@@ -20,15 +21,18 @@ const Search = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/api/foods?search=${searchQuery}`, {
+            const response = await fetch(//`${apiKey}/api/foods?search=${searchQuery}`
+            `http://localhost:3000/api/foods?search=${searchQuery}`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}` 
                 }
             })
             const data = await response.json()
+            console.log(data);
 
             if (response.ok) {
                 setResult(data.foods);
+                // console.log(result)
                 handleShow();
             } else {
                 setResult("");

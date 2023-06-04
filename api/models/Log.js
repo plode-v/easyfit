@@ -14,7 +14,7 @@ const logSchema = new mongoose.Schema({
     timestamps: true
 });
 
-logSchema.statics.getLogs = async (user_id) => {
+logSchema.statics.getLogs = async function(user_id) {
     const logs = await this.find({ user_id }).sort({ createdAt: -1 });
 
     if (!user_id) {
@@ -24,32 +24,43 @@ logSchema.statics.getLogs = async (user_id) => {
         throw Error("There is no log")
     }
 
-    res.status(200).json(logs);
+    return logs;
 }
 
-logSchema.statics.addFood = async (req, res) => {
-    const { id } = req.params;
+logSchema.statics.addFood = async function(user_id, food_id) {
     try {
-        const food = await Food.findOne({ _id: id }).select("_id");
-
-        if (!mongoose.Types.ObjectId.isValid(id) || !food) {
-            return res.status(404).json({ error: "No such food" });
+        const food = await Food.findById(food_id)
+        const log = await this.findOne({ _id: user_id });
+        if (!log) {
+            const newLog = await this.create({
+                user_id,
+                food
+            })
+            await newLog.save();
         }
 
-        res.status(200).json(food);
+        if (!mongoose.Types.ObjectId.isValid(user_id) || !food) {
+            throw Error("No such food")
+        }
+        
+        log.food.push(food);
+        return food
+
     } catch (err) {
-        return res.status(400).json({ error: err.message });
+        throw Error(err)
     }
 }
 
-logSchema.statics.deleteFoodFromlog = async (req, res) => {
+logSchema.statics.deleteFoodFromlog = async function(user_id, food_id){
     try {
-        const userId = req.user.id;
-        const { _id } = req.params;
+        const logEntry = await this.findOne({ user_id });
+        const food = await Food.findById({ _id: food_id });
+        if (!user_id) {
+            throw Error("Log entry not found")
+        }
 
-        const logEntry = await this.findById(userId);
-        if (!userId) {
-            return res.status(404).json({ error: "Log entry not found" });
+        if(!food) {
+            throw Error("Food not found");
         }
 
         logEntry.food = logEntry.food.filter((food) => {
@@ -57,9 +68,8 @@ logSchema.statics.deleteFoodFromlog = async (req, res) => {
         });
         await logEntry.save();
 
-        return res.status(200).json({ message: "Food deleted from log successful" });
     } catch(err) {
-        return res.status(400).json({ error: err.message });
+        throw Error(err.message)
     }
 }
 

@@ -7,6 +7,8 @@ import { ConfigRoutes } from "./configs"
 import { Navbar} from './components'
 
 function App() {
+
+
 	const item = {
 		hidden: {
 			opacity: 0,
