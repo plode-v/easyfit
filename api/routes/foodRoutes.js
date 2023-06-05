@@ -9,7 +9,7 @@ router.use(auth);
 router.get("/", getFoods);
 
 // get a single food
-router.get("/:name", getFood);
+router.get("/getFood/:id", getFood);
 
 // create new food
 router.post("/", createFood)

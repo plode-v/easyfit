@@ -1,28 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks"
+import axios from "axios";
 
 const Profile = () => {
     const { user } = useAuthContext();
     const [profile, setProfile] = useState(null);
 
-    const handleUser = async () => {
-        const response = await fetch(`/api/users`, {
-            headers: {
-                "Authorization": `Bearer ${user.token}`
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`http://localhost:3000/api/users`, {
+                headers: {
+                    "Authorization": `Bearer ${user.token}`
+                }
+            })
+            const data = response.data;
+            
+            if(response.status === 200){
+                setProfile(data)
+                console.log(profile)
             }
-        })
-        const data = await response.json();
-        
-        if(response.ok){
-            setProfile(data)
-            console.log(profile)
         }
-    }
+        fetchData();
+    }, [user, profile])
 
     return (
-        <div>
-            After login user will reach here.
-            <button onClick={handleUser}>here</button>
+        <div className="mt-[60px]">
+            hello
         </div>
     )
 }

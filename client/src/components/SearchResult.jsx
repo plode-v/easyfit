@@ -1,5 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import { FiPlus } from "react-icons/fi";
+import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
 
 const SearchResult = ({ handleClose, result, show }) => {
@@ -9,19 +10,16 @@ const SearchResult = ({ handleClose, result, show }) => {
 
     const handleClick = async (food) => {
         try {
-            const response = await fetch("http://localhost:3000/api/logs", {
+            const response = await axios.post("http://localhost:3000/api/logs", {
+                user_id: user._id,
+                foodId: food
+            }, {
                 headers: {
-                    "Authorization": `Bearer ${user.token}`,
-                    "Content-Type": "application/json"
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    user_id: user._id,
-                    foodId: food._id
-                })
-            });
+                    "Authorization": `Bearer ${user.token}`
+                }
+            })
 
-            if (response.ok) {
+            if (response.status === 200) {
                 dispatch({ type: "ADD_LOGS", payload: "food" })
                 handleClose();
                 console.log(logs)

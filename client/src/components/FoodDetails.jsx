@@ -1,33 +1,40 @@
 import { useEffect, useState } from "react";
-import { useLogsContext, useAuthContext } from "../hooks"
+import axios from "axios";
 
-const FoodDetails = async ({ result }) => {
-
-    const [food, setFood] = useState([]);
-    const { user } = useAuthContext();
+const FoodDetails = ({ foodId, token }) => {
+    const [food, setFood] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(result.map(item => {
-                `http://localhost:3000/api/foods?search=${item}`
-            }), {
-                headers: {
-                    "Authorization": `Bearer ${user.token}`
+        const fetchFood = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:3000/api/foods/getFood/${foodId}`,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+                );
+                const data = await response.data;
+                if (data) {
+                    setFood(data);
                 }
-            })
-            console.log(response)
+            } catch (err) {
+                console.error(err)
+            }
+        } 
 
-        }
-        fetchData();
-    })
-    
+        fetchFood();
+    }, [foodId, token]);
+
+    if (!food) {
+        return
+    }
 
     return (
-        <div className="border h-max w-full py-2">
+        <div className="border h-max w-full py-2" key={foodId}>
             <div className="flex items-center justify-between">
-                {result.map(item => (
-                    <div key={item._id}>{item.food}</div>
-                ))}
+                <div>{food.name}</div>
             </div>
         </div>
     )

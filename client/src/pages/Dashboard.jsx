@@ -1,36 +1,32 @@
-import { useEffect, useState } from "react"
-// import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 import { Calories } from "../components/dashboard"
 import { useAuthContext, useLogsContext } from "../hooks"
 import Search from "./Search"
 import axios from "axios"
-import { apiKey } from "../constants"
 import { FoodDetails } from "../components"
 
 const Dashboard = () => {
-    // const [result, setResult] = useState(null);
     const { user } = useAuthContext();
     const { dispatch, logs } = useLogsContext();
 
     useEffect(() => {
         const fetchLogs = async () => {
-            const response = await fetch("http://localhost:3000/api/logs", {
+            const response = await axios.get("http://localhost:3000/api/logs", {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
             })
-            const data = await response.json();
+            const data = response.data;
 
-            if (response.ok) {
+            if (response.status === 200) {
                 dispatch({ type: "SET_LOGS", payload: data })
-                console.log(data);
             }
 
         }
         if (user) {
             fetchLogs();
         }
-    }, [user, dispatch])
+    })
 
 
     return (
@@ -42,7 +38,7 @@ const Dashboard = () => {
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
                         {logs && logs.map(item => (
-                            <div key={item._id}>{item.name}</div>
+                            <FoodDetails foodId={item.food} token={user.token} key={item._id} />
                         ))}
                     </div>
                     <div className="flex flex-col w-1/3 h-full">

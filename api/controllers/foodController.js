@@ -7,7 +7,6 @@ const getFoods = async (req, res) => {
     try {
         const search = req.query.search || "";
         
-        // const foods = await Food.find({}).sort({ createdAt: -1 });
         const foods = await Food.find({name: {$regex:search, $options: "i"}})
         const total = await Food.countDocuments({name: {$regex: search, $options: "i"}});
 
@@ -25,9 +24,9 @@ const getFoods = async (req, res) => {
 }
 
 const getFood = async (req, res) => {
-    const { name } = req.params;
+    const { id } = req.params;
     try {
-        const food = await Food.findOne({name});
+        const food = await Food.findOne({_id: id});
     
         if (!food) {
             return res.status(404).json({ error: "No such food" });

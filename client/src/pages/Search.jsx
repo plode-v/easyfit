@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { useAuthContext, useLogsContext } from "../hooks";
+import { useAuthContext } from "../hooks";
 import { SearchResult } from "../components"
-import { apiKey } from "../constants"
+import axios from "axios";
+// import { apiKey } from "../constants"
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [result, setResult] = useState("")
     const { user } = useAuthContext();
     const [show, setShow] = useState(false)
-    const { dispatch } = useLogsContext();
 
     const handleClose = () => {
         setShow(false);
@@ -22,16 +22,16 @@ const Search = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(//`${apiKey}/api/foods?search=${searchQuery}`
+            const response = await axios.get(//`${apiKey}/api/foods?search=${searchQuery}`
             `http://localhost:3000/api/foods?search=${searchQuery}`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}` 
                 }
             })
-            const data = await response.json()
+            const data = await response.data
             console.log(data);
 
-            if (response.ok) {
+            if (response.status === 200) {
                 setResult(data.foods);
                 console.log(result)
                 handleShow();

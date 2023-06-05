@@ -1,7 +1,8 @@
 import { useState } from "react";
 import useAuthContext from "./useAuthContext"
 import { useNavigate } from "react-router-dom";
-import { apiKey } from "../constants";
+// import { apiKey } from "../constants";
+import axios from "axios";
 
 const useRegister = () => {
     const navigate = useNavigate();
@@ -14,21 +15,25 @@ const useRegister = () => {
         setIsLoading(false);
         setError(null);
 
-        const response = await fetch(//`${apiKey}/api/users/register`
+        const response = await axios.post(//`${apiKey}/api/users/register`
             "http://localhost:3000/api/users/register", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ username, email, password })
+                username,
+                email,
+                password
+        }, {
+            headers: {
+                "Content-Type": "application/json"
+            }
         });
-        const data = await response.json();
+        const data = response.data;
 
-        if (!response.ok) {
+        if (response.status !== 200) {
             setIsLoading(false);
             setError(data.error);
             console.log(error)
             setSuccess(false)
         }
-        if (response.ok) {
+        if (response.status === 200) {
             setIsLoading(true)
             localStorage.setItem("user", JSON.stringify(data))
 

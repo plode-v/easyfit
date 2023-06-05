@@ -29,7 +29,7 @@ logSchema.statics.searchLogs = async function(user_id) {
 
 logSchema.statics.addFood = async function(user_id, food_id) {
     try {
-        const food = await Food.findById(food_id)
+        const food = await Food.findOne({_id: food_id})
         const log = await this.findOne({ _id: user_id });
         if (!log) {
             const newLog = await this.create({
@@ -39,11 +39,10 @@ logSchema.statics.addFood = async function(user_id, food_id) {
             await newLog.save();
         }
 
-        if (!mongoose.Types.ObjectId.isValid(user_id) || !food) {
+        if (!mongoose.Types.ObjectId.isValid(user_id)) {
             throw Error("No such food")
         }
         
-        log.food.push(food);
         return food
 
     } catch (err) {

@@ -30,6 +30,10 @@ const Navbar = () => {
         navigate("/")
     }
 
+    const handleProfile = () => {
+        navigate("/profile")
+    }
+
     return (
         <nav className={`fixed z-20 top-0 bg-green-600 text-white h-[60px] w-full flex justify-center items-center px-3 transition duration-300 ease-in-out ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
             <div className="flex w-full lg:w-[1300px] justify-between items-center">
@@ -38,7 +42,7 @@ const Navbar = () => {
                 </h1>
                 {user ? (
                     <div className="flex gap-2 items-center">
-                        <p className="flex cursor-pointer">{user.email}</p>
+                        <p className="flex cursor-pointer" onClick={handleProfile}>{user.email}</p>
                         <button onClick={handleLogout} className="border rounded-md bg-white text-green-800 py-1 px-2">Logout</button>
                     </div>
                 ) : (

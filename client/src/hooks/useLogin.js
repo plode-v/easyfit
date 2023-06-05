@@ -1,7 +1,8 @@
 import useAuthContext from "./useAuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiKey } from "../constants";
+// import { apiKey } from "../constants";
+import axios from "axios"
 
 const useLogin = () => {
     const navigate = useNavigate();
@@ -12,19 +13,24 @@ const useLogin = () => {
 
     const login = async (email, password) => {
 
-        const response = await fetch(//`${apiKey}/api/users/login` || 
+        const response = await axios.post(//`${apiKey}/api/users/login` || 
             "http://localhost:3000/api/users/login", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ email, password })
-        })
-        const data = await response.json();
+                email,
+                password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
 
-        if (!response.ok) {
+            )
+        const data = await response.data;
+
+        if (response.status !== 200) {
             setError(data.error)
             setIsLoading(null);
         }
-        if (response.ok) {
+        if (response.status === 200) {
             setIsLoading(true);
             setError(null);
             localStorage.setItem("user", JSON.stringify(data))
