@@ -14,7 +14,7 @@ const logSchema = new mongoose.Schema({
     timestamps: true
 });
 
-logSchema.statics.getLogs = async function(user_id) {
+logSchema.statics.searchLogs = async function(user_id) {
     const logs = await this.find({ user_id }).sort({ createdAt: -1 });
 
     if (!user_id) {

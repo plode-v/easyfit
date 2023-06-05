@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import { Calories } from "../components/dashboard"
-import { useAuthContext, useFoodContext, useLogsContext } from "../hooks"
+import { useAuthContext, useLogsContext } from "../hooks"
 import Search from "./Search"
 import axios from "axios"
 import { apiKey } from "../constants"
@@ -10,33 +10,27 @@ import { FoodDetails } from "../components"
 const Dashboard = () => {
     // const [result, setResult] = useState(null);
     const { user } = useAuthContext();
-    const { dispatch: foodDispatch } = useFoodContext();
-    const { dispatch: logDispatch } = useLogsContext();
-
-    const [result, setResult] = useState([]);
+    const { dispatch, logs } = useLogsContext();
 
     useEffect(() => {
-        const fetchFoods = async () => {
-            const response = await fetch(//`${apiKey}/api/logs`
-            "http://localhost:3000/api/logs", {
+        const fetchLogs = async () => {
+            const response = await fetch("/api/logs", {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
             })
             const data = await response.json();
-            console.log(data);
-            
-    
-            if (response.ok){
-                logDispatch({ type: "SET_LOGS", payload: result })
-                setResult(data.allLogs)
-                logDispatch(data.allLogs)
-                console.log(result)
+
+            if (response.ok) {
+                dispatch({ type: "SET_LOGS", payload: data })
+                console.log(data);
             }
-    
+
         }
-        fetchFoods();
-    }, [])
+        if (user) {
+            fetchLogs();
+        }
+    }, [user, dispatch])
 
 
     return (
@@ -47,11 +41,9 @@ const Dashboard = () => {
                 </div>
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
-                        {/* <FoodDetails result={result} /> */}
-                        {/* <FoodDetails result={result} /> */}
-                        {
-                            result && result.map(item => console.log(item))
-                        }
+                        {logs && logs.map(item => (
+                            <div key={item._id}>{item.name}</div>
+                        ))}
                     </div>
                     <div className="flex flex-col w-1/3 h-full">
                         {/* search for food here */}

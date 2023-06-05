@@ -1,21 +1,34 @@
 import Modal from "react-bootstrap/Modal";
 import { FiPlus } from "react-icons/fi";
-import { useLogsContext } from "../hooks";
+import { useLogsContext, useAuthContext } from "../hooks";
 
 const SearchResult = ({ handleClose, result, show }) => {
 
     const { dispatch, logs } = useLogsContext();
+    const { user } = useAuthContext();
 
-    const handleClick = (food) => {
-        console.log(food)
+    const handleClick = async (food) => {
+        try {
+            const response = await fetch("/api/logs", {
+                headers: {
+                    "Authorization": `Bearer ${user.token}`,
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    user_id: user._id,
+                    foodId: food._id
+                })
+            });
 
-        dispatch({
-            type: "ADD_LOGS",
-            payload: food
-        });
-        handleClose();
-        console.log(logs)
-
+            if (response.ok) {
+                dispatch({ type: "ADD_LOGS", payload: "food" })
+                handleClose();
+                console.log(logs)
+            }
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (
