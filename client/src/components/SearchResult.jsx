@@ -7,6 +7,7 @@ const SearchResult = ({ handleClose, result, show }) => {
     const { dispatch, logs } = useLogsContext();
 
     const handleClick = (food) => {
+        console.log(food)
 
         dispatch({
             type: "ADD_LOGS",

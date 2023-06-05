@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuthContext } from "../hooks";
+import { useAuthContext, useLogsContext } from "../hooks";
 import { SearchResult } from "../components"
 import { apiKey } from "../constants"
 
@@ -8,6 +8,7 @@ const Search = () => {
     const [result, setResult] = useState("")
     const { user } = useAuthContext();
     const [show, setShow] = useState(false)
+    const { dispatch } = useLogsContext();
 
     const handleClose = () => {
         setShow(false);
@@ -32,7 +33,7 @@ const Search = () => {
 
             if (response.ok) {
                 setResult(data.foods);
-                // console.log(result)
+                console.log(result)
                 handleShow();
             } else {
                 setResult("");

@@ -11,9 +11,9 @@ const Dashboard = () => {
     // const [result, setResult] = useState(null);
     const { user } = useAuthContext();
     const { dispatch: foodDispatch } = useFoodContext();
-    const { dispatch: logDispatch, logs } = useLogsContext();
+    const { dispatch: logDispatch } = useLogsContext();
 
-    const [result, setResult] = useState();
+    const [result, setResult] = useState([]);
 
     useEffect(() => {
         const fetchFoods = async () => {
@@ -24,18 +24,20 @@ const Dashboard = () => {
                 }
             })
             const data = await response.json();
-            console.log(data.allLogs);
+            console.log(data);
             
-
+    
             if (response.ok){
+                logDispatch({ type: "SET_LOGS", payload: result })
                 setResult(data.allLogs)
+                logDispatch(data.allLogs)
                 console.log(result)
             }
-
+    
         }
         fetchFoods();
+    }, [])
 
-    },[])
 
     return (
         <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
@@ -47,6 +49,9 @@ const Dashboard = () => {
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
                         {/* <FoodDetails result={result} /> */}
                         {/* <FoodDetails result={result} /> */}
+                        {
+                            result && result.map(item => console.log(item))
+                        }
                     </div>
                     <div className="flex flex-col w-1/3 h-full">
                         {/* search for food here */}

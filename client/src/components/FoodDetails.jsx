@@ -25,7 +25,9 @@ const FoodDetails = async ({ result }) => {
     return (
         <div className="border h-max w-full py-2">
             <div className="flex items-center justify-between">
-
+                {result.map(item => (
+                    <div key={item._id}>{item.food}</div>
+                ))}
             </div>
         </div>
     )

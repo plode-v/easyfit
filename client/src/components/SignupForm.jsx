@@ -26,7 +26,14 @@ const SignupForm = () => {
                 <div className="flex flex-col gap-5 w-3/4">
                     <div className="flex flex-col">
                         <label className="my-1">Username:</label>
-                        <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} className="border py-2 px-3 rounded-md focus:outline-none" />
+                        <input 
+                            type="text" 
+                            placeholder="Username" 
+                            value={username} 
+                            onChange={e => setUsername(e.target.value)} 
+                            className="border py-2 px-3 rounded-md focus:outline-none" 
+                            autoFocus    
+                        />
                     </div>
                     <div className="flex flex-col">
                         <label className="my-1">Email:</label>

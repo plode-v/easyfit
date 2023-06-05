@@ -12,8 +12,6 @@ const LoginForm = () => {
         e.preventDefault();
 
         await login(email.toLowerCase(), password)
-        setEmail("")
-        setPassword("")
     }
 
     return (
@@ -27,7 +25,8 @@ const LoginForm = () => {
                 <div className="flex flex-col w-3/4 gap-5">
                     <div className="flex flex-col">
                         <label className="my-1">Email:</label>
-                        <input 
+                        <input
+                            autoFocus 
                             className="border py-2 px-3 rounded-md focus:outline-none"
                             type="email"
                             placeholder="john@doe.com"
