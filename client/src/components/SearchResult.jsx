@@ -9,7 +9,7 @@ const SearchResult = ({ handleClose, result, show }) => {
 
     const handleClick = async (food) => {
         try {
-            const response = await fetch("/api/logs", {
+            const response = await fetch("http://localhost:3000/api/logs", {
                 headers: {
                     "Authorization": `Bearer ${user.token}`,
                     "Content-Type": "application/json"

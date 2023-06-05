@@ -14,7 +14,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchLogs = async () => {
-            const response = await fetch("/api/logs", {
+            const response = await fetch("http://localhost:3000/api/logs", {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
