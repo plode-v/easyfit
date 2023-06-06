@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { apiKey } from "./src/constants"
+import { config } from "dotenv"
+config();
 
 export default defineConfig({
   plugins: [react()],
@@ -9,7 +10,7 @@ export default defineConfig({
       "/api": {
         secure: false,
         changeOrigin: true,
-        target: apiKey
+        target: process.env.VIITE_API_KEY
       }
     }
   }
