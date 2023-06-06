@@ -21,15 +21,15 @@ const addFood = async (req, res) => {
 }
 
 const deleteFoodLog = async (req, res) => {
-    const user_id = req.user._id;
-    const { _id } = req.params;
-    const food = await Log.findOneAndDelete( user_id, _id )
+    const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id) || !food) {
-        return res.status(400).json({ error: "No such food" })
+    try {
+        const log = await Log.deleteFoodLog({ _id: id });
+
+        res.status(200).json(log);
+    } catch (err) {
+        res.status(500).json({ error: err.message })
     }
-
-    res.status(200).json(food)
 }
 
 module.exports = {

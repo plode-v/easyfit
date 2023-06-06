@@ -17,7 +17,7 @@ const Dashboard = () => {
                     "Authorization": `Bearer ${user.token}`
                 }
             })
-            const data = response.data;
+            const data = await response.data;
 
             if (response.status === 200) {
                 dispatch({ type: "SET_LOGS", payload: data })
@@ -28,7 +28,7 @@ const Dashboard = () => {
         if (user) {
             fetchLogs();
         }
-    }, [dispatch, user, food])
+    }, [])
 
 
     return (
@@ -40,7 +40,7 @@ const Dashboard = () => {
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
                         {logs && logs.map(item => (
-                            <FoodDetails foodId={item.food} token={user.token} key={item._id} />
+                            <FoodDetails foodId={item.food} token={user.token} key={item._id} log={logs} />
                         ))}
                     </div>
                     <div className="flex flex-col w-1/3 h-full">

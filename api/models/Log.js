@@ -50,26 +50,18 @@ logSchema.statics.addFood = async function(user_id, food_id) {
     }
 }
 
-logSchema.statics.deleteFoodFromlog = async function(user_id, food_id){
-    try {
-        const logEntry = await this.findOne({ user_id });
-        const food = await Food.findById({ _id: food_id });
-        if (!user_id) {
-            throw Error("Log entry not found")
-        }
-
-        if(!food) {
-            throw Error("Food not found");
-        }
-
-        logEntry.food = logEntry.food.filter((food) => {
-            food.toString() !== _id
-        });
-        await logEntry.save();
-
-    } catch(err) {
-        throw Error(err.message)
+logSchema.statics.deleteFoodFromlog = async function(id){
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw Error("No such workout")
     }
+
+    const log = await this.findOneAndDelete({_id: id});
+
+    if (!log){
+        throw Error("No log entry")
+    }
+
+    return log;
 }
 
 module.exports = mongoose.model("Log", logSchema);

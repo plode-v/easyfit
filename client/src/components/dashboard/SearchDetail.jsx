@@ -1,8 +1,8 @@
-import { CustomButton } from "./"
+import { CustomButton } from "."
 import { BsTrash } from 'react-icons/bs'
 import { RxUpdate } from "react-icons/rx"
 
-const FoodDetails = ({name, calories}) => {
+const SearchDetail = ({name, calories}) => {
 
 	const handleDetails = () => {
 		null
@@ -23,4 +23,4 @@ const FoodDetails = ({name, calories}) => {
 	)
 }
 
-export default FoodDetails
+export default SearchDetail

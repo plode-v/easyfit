@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useLogsContext } from "../hooks";
 
-const FoodDetails = ({ foodId, token }) => {
+const FoodDetails = ({ foodId, token, log }) => {
     const [food, setFood] = useState()
+    const { dispatch } = useLogsContext();
     
     useEffect(() => {
         const fetchFood = async () => {
@@ -24,10 +26,26 @@ const FoodDetails = ({ foodId, token }) => {
                 }
             }
             fetchFood();
-    }, []);
+    }, [food, token, foodId]);
 
     if (!food) {
         return
+    }
+
+
+    const handleTrash = async () => {
+        console.log(log)
+        const response = await axios.delete("http://localhost:3000/api/logs/"+log._id, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+
+        const data = await response.data;
+
+        if (response.status === 200) {
+            dispatch({ type: "DELETE_LOGS", payload: data });
+        }
     }
 
 
@@ -35,7 +53,7 @@ const FoodDetails = ({ foodId, token }) => {
         <div className="border h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>
             <div className="flex items-center justify-between">
                 <div>{food.name}</div>
-                <div>Trash</div>
+                <button onClick={handleTrash}>Trash</button>
             </div>
             <div>
                 {food.calories}
