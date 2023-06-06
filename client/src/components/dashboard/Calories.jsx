@@ -5,14 +5,30 @@ const Calories = ({ token, logs }) => {
 
     const [food, setFood] = useState();
 
-    useEffect(() => {
-        const fetchFoodData = () => {
-            setFood(logs)
-            
-        }
 
-        fetchFoodData();
-    },[])
+    useEffect(() => {
+        const fetchFood = async () => {
+            try {
+                const foodId = logs.map(item => item.food)
+                const response = await axios.get(
+                    `http://localhost:3000/api/foods/getFood/${foodId}`,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+                    );
+                    const data = await response.data;
+                    if (data) {
+                        setFood(data);
+                        console.log(food)
+                    }
+                } catch (err) {
+                    console.error(err)
+                }
+            }
+            fetchFood();
+    }, []);
 
 
   return (
