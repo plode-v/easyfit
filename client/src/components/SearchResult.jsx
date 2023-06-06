@@ -10,7 +10,7 @@ const SearchResult = ({ handleClose, result, show }) => {
 
     const handleClick = async (food) => {
         try {
-            const response = await axios.post("http://localhost:3000/api/logs", {
+            const response = await axios.post("/api/logs", {
                 user_id: user._id,
                 foodId: food
             }, {

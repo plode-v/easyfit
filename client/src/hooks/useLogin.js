@@ -14,7 +14,7 @@ const useLogin = () => {
     const login = async (email, password) => {
 
         const response = await axios.post(//`${apiKey}/api/users/login` || 
-            "http://localhost:3000/api/users/login", {
+            "/api/users/login", {
                 email,
                 password
             }, {

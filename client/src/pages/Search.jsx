@@ -23,7 +23,7 @@ const Search = () => {
 
         try {
             const response = await axios.get(//`${apiKey}/api/foods?search=${searchQuery}`
-            `http://localhost:3000/api/foods?search=${searchQuery}`, {
+            `/api/foods?search=${searchQuery}`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}` 
                 }

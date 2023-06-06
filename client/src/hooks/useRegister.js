@@ -16,7 +16,7 @@ const useRegister = () => {
         setError(null);
 
         const response = await axios.post(//`${apiKey}/api/users/register`
-            "http://localhost:3000/api/users/register", {
+            "/api/users/register", {
                 username,
                 email,
                 password

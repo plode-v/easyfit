@@ -12,7 +12,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchLogs = async () => {
-            const response = await axios.get("http://localhost:3000/api/logs", {
+            const response = await axios.get("/api/logs", {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
