@@ -23,7 +23,7 @@ app.use('/api/logs', logRoutes);
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("Connected to database")
-        app.listen("http://54.219.207.28:3000", () => {
+        app.listen(PORT, () => {
             console.log(`listening for requests on port ${PORT}`)
         })
     })

@@ -11,7 +11,7 @@ const Calories = ({ token, logs }) => {
             try {
                 const foodId = logs.map(item => item.food)
                 const response = await axios.get(
-                    `/api/foods/getFood/${foodId}`,
+                    `http://localhost:3000/api/foods/getFood/${foodId}`,
                     {
                         headers: {
                             "Authorization": `Bearer ${token}`

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAuthContext } from "../hooks";
 import { SearchResult } from "../components"
 import axios from "axios";
-// import { apiKey } from "../constants"
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState("")
@@ -22,8 +21,7 @@ const Search = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.get(//`${apiKey}/api/foods?search=${searchQuery}`
-            `/api/foods?search=${searchQuery}`, {
+            const response = await axios.get(`http://localhost:3000/api/foods?search=${searchQuery}`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}` 
                 }

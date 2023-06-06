@@ -1,7 +1,6 @@
 import { useState } from "react";
 import useAuthContext from "./useAuthContext"
 import { useNavigate } from "react-router-dom";
-// import { apiKey } from "../constants";
 import axios from "axios";
 
 const useRegister = () => {
@@ -15,8 +14,7 @@ const useRegister = () => {
         setIsLoading(false);
         setError(null);
 
-        const response = await axios.post(//`${apiKey}/api/users/register`
-            "/api/users/register", {
+        const response = await axios.post("http://localhost:3000/api/users/register", {
                 username,
                 email,
                 password
