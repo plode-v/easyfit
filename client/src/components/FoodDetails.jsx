@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useCalories } from "../hooks";
 import axios from "axios";
 
 const FoodDetails = ({ foodId, token }) => {
-    const [food, setFood] = useState(null);
-
+    const [food, setFood] = useState()
+    const [calories, setCalories] = useState();
+    let total = []
+    
     useEffect(() => {
         const fetchFood = async () => {
             try {
@@ -14,27 +17,31 @@ const FoodDetails = ({ foodId, token }) => {
                             "Authorization": `Bearer ${token}`
                         }
                     }
-                );
-                const data = await response.data;
-                if (data) {
-                    setFood(data);
+                    );
+                    const data = await response.data;
+                    if (data) {
+                        setFood(data);
+                    }
+                } catch (err) {
+                    console.error(err)
                 }
-            } catch (err) {
-                console.error(err)
             }
-        } 
-
-        fetchFood();
-    }, [foodId, token]);
+            fetchFood();
+    }, []);
 
     if (!food) {
         return
     }
 
     return (
-        <div className="border h-max w-full py-2" key={foodId}>
+        <div className="border h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>
+            {total[1]}
             <div className="flex items-center justify-between">
                 <div>{food.name}</div>
+                <div>Trash</div>
+            </div>
+            <div>
+                {food.calories}
             </div>
         </div>
     )

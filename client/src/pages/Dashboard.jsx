@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Calories } from "../components/dashboard"
 import { useAuthContext, useLogsContext } from "../hooks"
 import Search from "./Search"
@@ -8,6 +8,7 @@ import { FoodDetails } from "../components"
 const Dashboard = () => {
     const { user } = useAuthContext();
     const { dispatch, logs } = useLogsContext();
+    const [food, setFood] = useState();
 
     useEffect(() => {
         const fetchLogs = async () => {
@@ -20,20 +21,21 @@ const Dashboard = () => {
 
             if (response.status === 200) {
                 dispatch({ type: "SET_LOGS", payload: data })
+                setFood(data)
             }
 
         }
         if (user) {
             fetchLogs();
         }
-    })
+    }, [dispatch, user, food])
 
 
     return (
         <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
             <div className="w-full lg:w-[1300px] flex-col flex">
                 <div className="flex justify-center items-center">
-                    <Calories />
+                        <Calories token={user.token} logs={food} />
                 </div>
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
@@ -42,7 +44,6 @@ const Dashboard = () => {
                         ))}
                     </div>
                     <div className="flex flex-col w-1/3 h-full">
-                        {/* search for food here */}
                         <Search />
                     </div>
                 </div>

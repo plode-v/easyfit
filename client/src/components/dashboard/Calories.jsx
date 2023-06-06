@@ -1,4 +1,20 @@
-const Calories = () => {
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+const Calories = ({ token, logs }) => {
+
+    const [food, setFood] = useState();
+
+    useEffect(() => {
+        const fetchFoodData = () => {
+            setFood(logs)
+            
+        }
+
+        fetchFoodData();
+    },[])
+
+
   return (
     <div className="flex w-full items-center justify-center lg:w-[600px]">
       <div className="flex-1 items-center justify-center flex-col flex h-max py-3">
