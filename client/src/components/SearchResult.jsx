@@ -2,6 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import { FiPlus } from "react-icons/fi";
 import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
+import { apiKey } from "../constants";
 
 const SearchResult = ({ handleClose, result, show }) => {
 
@@ -10,7 +11,7 @@ const SearchResult = ({ handleClose, result, show }) => {
 
     const handleClick = async (food) => {
         try {
-            const response = await axios.post("http://localhost:3000/api/logs", {
+            const response = await axios.post(`${apiKey}/api/logs`, {
                 user_id: user._id,
                 foodId: food
             }, {

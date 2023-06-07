@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks"
 import axios from "axios";
+import { apiKey } from "../constants";
 
 const Profile = () => {
     const { user } = useAuthContext();
@@ -8,7 +9,7 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:3000/api/users`, {
+            const response = await axios.get(`${apiKey}/api/users`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }

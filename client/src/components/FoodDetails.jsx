@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLogsContext } from "../hooks";
+import { apiKey } from "../constants";
 
 const FoodDetails = ({ foodId, token, log }) => {
     const [food, setFood] = useState()
@@ -10,7 +11,7 @@ const FoodDetails = ({ foodId, token, log }) => {
         const fetchFood = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/api/foods/getFood/${foodId}`,
+                    `${apiKey}/api/foods/getFood/${foodId}`,
                     {
                         headers: {
                             "Authorization": `Bearer ${token}`
@@ -35,7 +36,7 @@ const FoodDetails = ({ foodId, token, log }) => {
 
     const handleTrash = async () => {
         console.log(log)
-        const response = await axios.delete("http://localhost:3000/api/logs/"+log._id, {
+        const response = await axios.delete(`${apiKey}/api/logs/${log._id}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
