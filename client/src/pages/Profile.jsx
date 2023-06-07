@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuthContext, useProfileContext } from "../hooks"
 import axios from "axios";
 
@@ -26,7 +26,7 @@ const Profile = () => {
     return (
         // TODO: if profile then show edit/update profile button, else show setProfile button
         // TODO: also have a button to use calories calculator somewhere and update profile upon data given to the calculator
-        
+
         <div className="mt-[60px] flex items-center justify-center h-[500px]">
             <div className="border h-max items-center justify-center flex flex-col">
                 <div>
