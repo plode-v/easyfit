@@ -10,6 +10,7 @@ const Dashboard = () => {
     const { dispatch, logs } = useLogsContext();
     const [food, setFood] = useState();
 
+    // FIXME: Not automatically updates when add food
     useEffect(() => {
         const fetchLogs = async () => {
             const response = await axios.get("http://localhost:3000/api/logs", {
