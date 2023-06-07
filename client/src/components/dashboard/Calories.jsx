@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { apiKey } from "../../constants"
 
 const Calories = ({ token, logs }) => {
 
@@ -11,7 +12,7 @@ const Calories = ({ token, logs }) => {
             try {
                 const foodId = logs.map(item => item.food)
                 const response = await axios.get(
-                    `http://localhost:3000/api/foods/getFood/${foodId}`,
+                    `${apiKey}/api/foods/getFood/${foodId}`,
                     {
                         headers: {
                             "Authorization": `Bearer ${token}`
