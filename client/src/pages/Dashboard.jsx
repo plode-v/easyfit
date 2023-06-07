@@ -28,7 +28,7 @@ const Dashboard = () => {
         if (user) {
             fetchLogs();
         }
-    }, [])
+    }, [user, dispatch])
 
 
     return (
@@ -40,7 +40,9 @@ const Dashboard = () => {
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
                         {logs && logs.map(item => (
-                            <FoodDetails foodId={item.food} token={user.token} key={item._id} log={logs} />
+                            <div key={item._id}>
+                                <FoodDetails foodId={item.food} />
+                            </div>
                         ))}
                     </div>
                     <div className="flex flex-col w-1/3 h-full">

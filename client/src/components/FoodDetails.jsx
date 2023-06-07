@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLogsContext } from "../hooks";
+import { useLogsContext, useAuthContext } from "../hooks";
 
-const FoodDetails = ({ foodId, token, log }) => {
+const FoodDetails = ({ foodId }) => {
     const [food, setFood] = useState()
-    const { dispatch } = useLogsContext();
+    const { dispatch, logs } = useLogsContext();
+    const { user } = useAuthContext();
     
     useEffect(() => {
         const fetchFood = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:3000/api/foods/getFood/${foodId}`,
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        }
+                const response = await axios.get(`http://localhost:3000/api/foods/getFood/${foodId}`, {
+                    headers: {
+                        "Authorization": `Bearer ${user.token}`
                     }
-                    );
+                })
                     const data = await response.data;
                     if (data) {
                         setFood(data);
@@ -26,7 +24,7 @@ const FoodDetails = ({ foodId, token, log }) => {
                 }
             }
             fetchFood();
-    }, [food, token, foodId]);
+    }, [user, foodId]);
 
     if (!food) {
         return
@@ -34,20 +32,22 @@ const FoodDetails = ({ foodId, token, log }) => {
 
 
     const handleTrash = async () => {
-        console.log(log)
-        const response = await axios.delete("http://localhost:3000/api/logs/"+log._id, {
+        const logId = logs.find(log => log.food === food._id)._id;
+        console.log(logId)
+        const response = await axios.delete(`http://localhost:3000/api/logs/${logId}`, {
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${user.token}`
             }
         })
 
-        const data = await response.data;
+        const data = response.data;
 
         if (response.status === 200) {
-            dispatch({ type: "DELETE_LOGS", payload: data });
+            dispatch({ type: "DELETE_LOGS", payload: data })
         }
-    }
 
+
+    }
 
     return (
         <div className="border h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>

@@ -8,7 +8,7 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:3000/api/users`, {
+            const response = await axios.get(`http://localhost:3000/api/profiles`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
@@ -16,8 +16,7 @@ const Profile = () => {
             const data = response.data;
             
             if(response.status === 200){
-                setProfile(data)
-                console.log(profile)
+                console.log(data)
             }
         }
         fetchData();
@@ -25,7 +24,7 @@ const Profile = () => {
 
     return (
         <div className="mt-[60px]">
-            hello
+            
         </div>
     )
 }

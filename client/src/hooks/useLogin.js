@@ -12,7 +12,7 @@ const useLogin = () => {
 
     const login = async (email, password) => {
 
-        const response = await axios.post("http://localhost/api/users/login", {
+        const response = await axios.post("http://localhost:3000/api/users/login", {
                 email,
                 password
             }, {
