@@ -10,6 +10,7 @@ const Profile = () => {
     const [height, setHeight] = useState();
     const [weight, setWeight] = useState();
     const [age, setAge] = useState();
+    const [calories, setCalories] = useState()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,13 +29,12 @@ const Profile = () => {
                 setHeight(profiles.height)
                 setWeight(profiles.weight)
                 setAge(profiles.age)
+                setCalories(profiles.calories)
             }
         }
 
         fetchData();
-    }, [user, dispatch, profiles])
-    
-    const handleClose = () => setShow(false);
+    }, [])
 
     return (
         // TODO: if profile then show edit/update profile button, else show setProfile button
@@ -53,13 +53,16 @@ const Profile = () => {
                         <div>
                             age: {age} years
                         </div>
+                        <div>
+                            calories: {calories} cal
+                        </div>
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center gap-[20px]">
                         <h1 className="font-[700] text-[24px] bg-green-500 text-white py-2 px-3 rounded-lg uppercase">No Profile, setup below</h1>
                         <button onClick={() => setShow(true)}>Here</button>
 
-                        <ProfileSetup show={show} onHide={() => setShow(false)} />
+                        <ProfileSetup token={user.token} show={show} onHide={() => setShow(false)} />
                     </div>
                 )}
             </div>

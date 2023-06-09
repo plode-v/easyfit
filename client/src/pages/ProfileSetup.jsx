@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import axios from 'axios';
+import { useProfileContext } from '../hooks';
 import Modal from "react-bootstrap/Modal"
 
-const ProfileSetup = ({ show, onHide }) => {
+const ProfileSetup = ({ show, onHide, token }) => {
     // TODO: make this page popup right when user register.
+
+    const { dispatch } = useProfileContext();
 
     // TODO: set up form values and stuff
     const [height, setHeight] = useState("");
@@ -11,20 +15,39 @@ const ProfileSetup = ({ show, onHide }) => {
     const [gender, setGender] = useState("");
     const [activity, setActivity] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let bmr;
-
-        // FIXME: Get the right formula for activity levels
+        let cal;
 
         if (gender === "male") {
-            bmr = Math.round(((10 * weight) + (6.25 * height ) - (5 * age - 161 )) * activity)
+            cal = (Math.round(((10 * weight) + (6.25 * height ) - (5 * age - 161 )) * activity))
         }
         if (gender === "female") {
-            bmr = Math.round(((10 * weight) + (6.25 * height ) - (5 * age + 5 )) * activity)
+            cal = (Math.round(((10 * weight) + (6.25 * height ) - (5 * age + 5 )) * activity))
         }
 
-        console.log(height, weight, age, gender, activity, bmr)
+        const response = await axios.post("http://localhost:3000/api/profiles", {
+            height,
+            weight,
+            age,
+            calories: cal,
+            gender
+        }, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+
+        const data = response.data;
+
+        if (response.status === 200) {
+            dispatch({ type: "CREATE_PROFILE", payload: data });
+            console.log("success")
+        }
+
+
+        
 
     }
 
@@ -37,26 +60,26 @@ const ProfileSetup = ({ show, onHide }) => {
                 <form className='flex flex-col gap-[20px] lg:px-[10px]' onSubmit={handleSubmit}>
                     <p className='text-red-500 font-[700] uppercase'>Metrics Unit</p>
                     <div className='flex justify-between'>
-                        <label className='font-[600] text-[18px]'>Height in cm:</label>
+                        <label className='font-[600] text-[18px]'>Height:</label>
                         <input 
                             required
                             type="number" 
                             step={1} 
                             className='border px-[5px] text-[18px]' 
-                            placeholder="180" 
+                            placeholder="180 cm" 
                             autoFocus 
                             value={height}
                             onChange={(e) => setHeight(e.target.value)}    
                         />
                     </div>
                     <div className='flex justify-between'>
-                        <label className='font-[600] text-[18px]'>Weight in kg:</label>
+                        <label className='font-[600] text-[18px]'>Weight:</label>
                         <input 
                             required
                             type="number" 
                             step={1} 
                             className='border px-[5px] text-[18px]' 
-                            placeholder="75" 
+                            placeholder="75 kg" 
                             value={weight}
                             onChange={e => setWeight(e.target.value)}
                         />
@@ -99,11 +122,11 @@ const ProfileSetup = ({ show, onHide }) => {
                             onChange={e => setActivity(e.target.value)}
                         >
                             <option value="" disabled>Select one</option>
-                            <option value={1.1}>Sedentary</option>
-                            <option value={1.26}>Light</option>
-                            <option value={1.35}>Moderate</option>
-                            <option value={1.425}>Active</option>
-                            <option value={1.6}>Very Active</option>
+                            <option value={1.2}>Sedentary</option>
+                            <option value={1.375}>Light</option>
+                            <option value={1.55}>Moderate</option>
+                            <option value={1.725}>Active</option>
+                            <option value={1.9}>Very Active</option>
                         </select>
                     </div>
                     <div className='flex flex-col justify-center text-[12px] lg:text-[16px]'>
