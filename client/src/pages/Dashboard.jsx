@@ -36,7 +36,7 @@ const Dashboard = () => {
         <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
             <div className="w-full lg:w-[1300px] flex-col flex">
                 <div className="flex justify-center items-center">
-                        <Calories token={user.token} logs={food} />
+                    <Calories token={user.token} logs={food} />
                 </div>
                 <div className="w-full flex">
                     <div className="flex flex-col h-full w-full lg:w-2/3 border">
