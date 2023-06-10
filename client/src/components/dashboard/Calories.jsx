@@ -39,21 +39,6 @@ const Calories = ({ token }) => {
             logs.map(item => foods.push(item.food));
 
             for (let i = 0; i < foods.length; i++) {
-                const response = await axios.get(`http://localhost:3000/api/foods/getFood/${foods[i]}`)
-            }
-        }
-        fetchCalories();
-
-    }, [dispatch, token])
-
-    useEffect(() => {
-        let foods = []
-        let allCalories = 0;
-        
-        const fetchData = async () => {
-            logs.map(item => foods.push(item.food))
-
-            for (let i = 0; i < foods.length; i++) {
                 const response = await axios.get(`http://localhost:3000/api/foods/getFood/${foods[i]}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -64,9 +49,10 @@ const Calories = ({ token }) => {
                 setFoodCal(allCalories);
             }
         }
+        fetchCalories();
         fetchData();
 
-    }, [logs, token])
+    }, [dispatch, token, logs])
 
   return (
     <div className="flex w-full items-center justify-center lg:w-[600px]">
