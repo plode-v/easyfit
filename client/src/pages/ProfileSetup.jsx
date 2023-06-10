@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import axios from 'axios';
-import { useProfileContext } from '../hooks';
+import { useProfileContext, useAuthContext } from '../hooks';
 import Modal from "react-bootstrap/Modal"
+import { useNavigate } from 'react-router-dom';
 
-const ProfileSetup = ({ show, onHide, token }) => {
+const ProfileSetup = () => {
     // TODO: make this page popup right when user register.
 
     const { dispatch } = useProfileContext();
+    const { user } = useAuthContext();
+    const navigate = useNavigate();
 
     // TODO: set up form values and stuff
     const [height, setHeight] = useState("");
@@ -34,7 +37,7 @@ const ProfileSetup = ({ show, onHide, token }) => {
             gender
         }, {
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${user.token}`,
                 "Content-Type": "application/json"
             }
         })
@@ -43,16 +46,15 @@ const ProfileSetup = ({ show, onHide, token }) => {
 
         if (response.status === 200) {
             dispatch({ type: "CREATE_PROFILE", payload: data });
-            console.log("success")
+            setTimeout(() => {
+                navigate('/')
+            }, 1000);
+
         }
-
-
-        
-
     }
 
     return (
-        <Modal show={show} onHide={onHide} centered>
+        <Modal show={true} centered>
             <Modal.Header className='bg-green-500 text-white'>
                 <Modal.Title>Setup Profile</Modal.Title>
             </Modal.Header>

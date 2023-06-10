@@ -56,7 +56,7 @@ const FoodDetails = ({ foodId }) => {
                 <button onClick={handleTrash}>Trash</button>
             </div>
             <div>
-                {food.calories}
+                {food.calories} cal
             </div>
         </div>
     )

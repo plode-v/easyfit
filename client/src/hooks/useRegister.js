@@ -40,8 +40,8 @@ const useRegister = () => {
             setError(null)
             setSuccess("Register Successful")
             setTimeout(() => {
-                navigate('/')
-            }, 1000);
+                navigate("/profile/setup")
+            }, 500);
         }
     }
 

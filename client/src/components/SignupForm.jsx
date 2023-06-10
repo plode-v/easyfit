@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRegister } from "../hooks"
 
@@ -8,11 +8,13 @@ const SignupForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const { register, isLoading, success, error } = useRegister();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         await register(username.toLowerCase(), email.toLowerCase(), password)
+        navigate('/profile')
 
     }
     return (

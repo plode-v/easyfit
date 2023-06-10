@@ -2,11 +2,13 @@ import Modal from "react-bootstrap/Modal";
 import { FiPlus } from "react-icons/fi";
 import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 const SearchResult = ({ handleClose, result, show }) => {
 
-    const { dispatch, logs } = useLogsContext();
+    const { dispatch } = useLogsContext();
     const { user } = useAuthContext();
+    const navigate = useNavigate();
 
     const handleClick = async (food) => {
         try {
@@ -22,7 +24,7 @@ const SearchResult = ({ handleClose, result, show }) => {
             if (response.status === 200) {
                 dispatch({ type: "ADD_LOGS", payload: "food" })
                 handleClose();
-                console.log(logs)
+                navigate('/')
             }
         } catch (err) {
             console.error(err)
@@ -30,7 +32,7 @@ const SearchResult = ({ handleClose, result, show }) => {
     }
 
     return (
-            <Modal show={show} onHide={handleClose} scrollable={true}>
+            <Modal show={show} onHide={handleClose} scrollable={true} centered>
             <Modal.Header className="flex-col flex items-start">
                 <Modal.Title>Search Results</Modal.Title>
             <p className="text-red-500 text-[14px]">*If does not specify, all calories are per 100 grams*</p>

@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuthContext, useProfileContext } from "../hooks"
 import axios from "axios";
-import { ProfileSetup } from "./"
 
 const Profile = () => {
-    const [show, setShow] = useState(false);
     const { user } = useAuthContext();
-    const { profiles, dispatch } = useProfileContext();
+    const { dispatch } = useProfileContext();
     const [height, setHeight] = useState();
     const [weight, setWeight] = useState();
     const [age, setAge] = useState();
@@ -23,18 +21,15 @@ const Profile = () => {
             
             if(response.status === 200){
                 dispatch({ type: "SET_PROFILES", payload: data })
-            }
-
-            if (profiles) {
-                setHeight(profiles.height)
-                setWeight(profiles.weight)
-                setAge(profiles.age)
-                setCalories(profiles.calories)
+                setHeight(data.height)
+                setWeight(data.weight)
+                setAge(data.age)
+                setCalories(data.calories)
             }
         }
 
         fetchData();
-    }, [])
+    }, [dispatch, user])
 
     return (
         // TODO: if profile then show edit/update profile button, else show setProfile button
@@ -42,7 +37,6 @@ const Profile = () => {
 
         <div className="mt-[60px] flex items-center justify-center h-[500px]">
             <div className="h-max items-center justify-center flex flex-col">
-                {profiles ? (
                     <div className="border">
                         <div>
                             height: {height} cm
@@ -57,14 +51,6 @@ const Profile = () => {
                             calories: {calories} cal
                         </div>
                     </div>
-                ) : (
-                    <div className="flex flex-col items-center justify-center gap-[20px]">
-                        <h1 className="font-[700] text-[24px] bg-green-500 text-white py-2 px-3 rounded-lg uppercase">No Profile, setup below</h1>
-                        <button onClick={() => setShow(true)}>Here</button>
-
-                        <ProfileSetup token={user.token} show={show} onHide={() => setShow(false)} />
-                    </div>
-                )}
             </div>
         </div>
     )
