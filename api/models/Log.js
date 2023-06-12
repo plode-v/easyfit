@@ -8,7 +8,12 @@ const logSchema = new mongoose.Schema({
     },
     food: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Food"
+        ref: "Food",
+    },
+    amount: {
+        type: Number,
+        required: true,
+        min: 0
     }
 },{
     timestamps: true
@@ -27,14 +32,15 @@ logSchema.statics.searchLogs = async function(user_id) {
     return logs;
 }
 
-logSchema.statics.addFood = async function(user_id, food_id) {
+logSchema.statics.addFood = async function(user_id, food_id, amount) {
     try {
         const food = await Food.findOne({_id: food_id})
         const log = await this.findOne({ _id: user_id });
         if (!log) {
             const newLog = await this.create({
                 user_id,
-                food
+                food,
+                amount
             })
             await newLog.save();
         }

@@ -7,7 +7,7 @@ const Calories = ({ token }) => {
     const { dispatch } = useProfileContext();
     const { logs } = useLogsContext();
     const [foodCal, setFoodCal] = useState(0);
-    const [calories, setCalories] = useState();
+    const [calories, setCalories] = useState(0);
 
     // TODO: add , in calories num
     // FIXME: fix error first time register on dashboard page.
@@ -51,6 +51,10 @@ const Calories = ({ token }) => {
         }
         fetchCalories();
         fetchData();
+        if (logs.length === 0) {
+            setFoodCal(0)
+        }
+        
 
     }, [dispatch, token, logs])
 

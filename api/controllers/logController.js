@@ -10,13 +10,13 @@ const getLogs = async (req, res) => {
 }
 
 const addFood = async (req, res) => {
-    const { foodId } = req.body;
+    const { foodId, amount } = req.body;
     const user_id = req.user._id;
 
     if (!foodId) {
         return res.status(400).json({ error: "please enter valid food" });
     }
-    const logs = await Log.addFood(user_id, foodId);
+    const logs = await Log.addFood(user_id, foodId, amount);
     return res.status(200).json(logs)
 }
 

@@ -13,8 +13,6 @@ const Dashboard = () => {
     const [isLoading, setIsloading] = useState(false)
     const navigate = useNavigate();
 
-
-    // FIXME: Not automatically updates when add food
     useEffect(() => {
         const fetchLogs = async () => {
             setIsloading(true)
@@ -49,15 +47,15 @@ const Dashboard = () => {
                         <Calories token={user.token} logs={food} />
                     </div>
                     <div className="w-full flex flex-col px-[0.75rem]">
-                        <div className="flex flex-col h-full w-full border">
+                        <div className="flex flex-col h-full w-full border rounded-[5px]">
                             {logs && logs.map(item => (
                                 <div key={item._id}>
-                                    <FoodDetails foodId={item.food} />
+                                    <FoodDetails foodId={item.food} logAmount={item.amount} />
                                 </div>
                             ))}
                         </div>
-                        <div className="flex flex-col h-full w-1/2">
-                            <button className="border" onClick={() => navigate('/search')}>add food</button>
+                        <div className="flex flex-col h-full w-[100px] mt-[20px]">
+                            <button className="bg-green-500 text-white font-[600] px-[0.75rem] py-[0.5rem] text-[16px] rounded-[5px] capitalize" onClick={() => navigate('/search')}>add food</button>
                         </div>
                     </div>
                 </div>

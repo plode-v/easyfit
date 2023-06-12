@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
 
-const FoodDetails = ({ foodId }) => {
+const FoodDetails = ({ foodId, logAmount }) => {
     const [food, setFood] = useState()
     const { dispatch, logs } = useLogsContext();
     const { user } = useAuthContext();
@@ -50,13 +50,25 @@ const FoodDetails = ({ foodId }) => {
     }
 
     return (
-        <div className="border h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>
+        <div className="h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>
             <div className="flex items-center justify-between">
-                <div>{food.name}</div>
-                <button onClick={handleTrash}>Trash</button>
-            </div>
-            <div>
-                {food.calories} cal
+                <div className="flex flex-col">
+                    <div>
+                        <p>{food.name}</p>
+                    </div>
+                    <div>
+                        <p className="text-gray-500">{logAmount * food.amount} grams</p>
+                    </div>
+                </div>
+                <div className="flex-col flex">
+                    <div className="flex gap-[5px]">
+                        <button>Edit</button>
+                        <button onClick={handleTrash}>Trash</button>
+                    </div>
+                    <div className="flex justify-end">
+                        {Math.round(food.calories * logAmount)} cal
+                    </div>
+                </div>
             </div>
         </div>
     )
