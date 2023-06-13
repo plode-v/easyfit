@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
+import { FoodInfo } from "./"
 
 const FoodDetails = ({ foodId, logAmount }) => {
     const [food, setFood] = useState()
     const { dispatch, logs } = useLogsContext();
     const { user } = useAuthContext();
+
+    const [show, setShow] = useState(false)
+
     
     useEffect(() => {
         const fetchFood = async () => {
@@ -29,6 +33,9 @@ const FoodDetails = ({ foodId, logAmount }) => {
     if (!food) {
         return
     }
+
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
 
 
     const handleTrash = async () => {
@@ -57,18 +64,23 @@ const FoodDetails = ({ foodId, logAmount }) => {
                         <p>{food.name}</p>
                     </div>
                     <div>
-                        <p className="text-gray-500">{logAmount * food.amount} grams</p>
+                        <p className="text-gray-500">{logAmount * food.amount} {food.unit}</p>
                     </div>
                 </div>
                 <div className="flex-col flex">
                     <div className="flex gap-[5px]">
-                        <button>Edit</button>
+                        <button onClick={handleShow}>Edit</button>
                         <button onClick={handleTrash}>Trash</button>
                     </div>
                     <div className="flex justify-end">
                         {Math.round(food.calories * logAmount)} cal
                     </div>
                 </div>
+                <FoodInfo
+                    show={show}
+                    onHide={handleClose}
+                    foods={food}
+                />
             </div>
         </div>
     )

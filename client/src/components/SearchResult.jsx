@@ -49,7 +49,7 @@ const SearchResult = ({ handleClose, result, show }) => {
                                 <h1 className="font-[500] text-[18px] capitalize">
                                     {item.name}
                                 </h1>
-                                <p>{item.desc} Calories</p>
+                                <p>{Math.round(item.calories * foodAmount)} Calories</p>
                                 <p>{item.desc}</p>
                             </div>
                             <div className="flex text-white gap-2 items-center justify-end">

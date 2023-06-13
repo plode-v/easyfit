@@ -14,35 +14,43 @@ const useRegister = () => {
         setIsLoading(false);
         setError(null);
 
-        const response = await axios.post("http://localhost:3000/api/users/register", {
-                username,
-                email,
-                password
-        }, {
-            headers: {
-                "Content-Type": "application/json"
+        try {
+            const response = await axios.post("http://localhost:3000/api/users/register", {
+                    username,
+                    email,
+                    password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const data = response.data;
+    
+            if (response.status !== 200) {
+                setIsLoading(false);
+                setError(data.error);
+                console.log(error)
+                setSuccess(false)
             }
-        });
-        const data = response.data;
-
-        if (response.status !== 200) {
+            if (response.status === 200) {
+                setIsLoading(true)
+                localStorage.setItem("user", JSON.stringify(data))
+    
+                dispatch({ type: "LOGIN", payload: data })
+                setIsLoading(false);
+                setError(null)
+                setSuccess("Register Successful")
+                setTimeout(() => {
+                    navigate("/profile/setup")
+                }, 500);
+            }
+        } catch (err) {
+            console.error(err);
             setIsLoading(false);
-            setError(data.error);
-            console.log(error)
+            setError(err.response.data.error);
             setSuccess(false)
         }
-        if (response.status === 200) {
-            setIsLoading(true)
-            localStorage.setItem("user", JSON.stringify(data))
 
-            dispatch({ type: "LOGIN", payload: data })
-            setIsLoading(false);
-            setError(null)
-            setSuccess("Register Successful")
-            setTimeout(() => {
-                navigate("/profile/setup")
-            }, 500);
-        }
     }
 
     return {

@@ -1,6 +1,5 @@
 const Log = require("../models/Log")
 const mongoose = require("mongoose")
-const Food = require("../models/Food")
 
 const getLogs = async (req, res) => {
     const user_id = req.user._id;

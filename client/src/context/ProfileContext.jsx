@@ -10,7 +10,8 @@ export const ProfileReducer = (state, action) => {
             }
         case "CREATE_PROFILE":
             return {
-                profiles: [action.payload, ...state.profiles]
+                // profiles: [action.payload, ...state.profiles]
+                profiles: action.payload
             }
         //TODO: UPDATE_PROFILE switch case
 
