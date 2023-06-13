@@ -1,4 +1,4 @@
-#EasyFit
+# EasyFit
 
 #### Make healthy lifestyle simplier.
 **[EasyFit Link][1]**
@@ -16,15 +16,15 @@ EasyFit was inspired by popular mobile application **[MyFitnessPal][3]** where u
 
 
 ---------------
-####Tech Stack
-#####Frontend:
+#### Tech Stack
+##### Frontend:
 - Vite ReactJS
 - Tailwind CSS
 - React Bootstrap
 - Axios
 - React Router DOM
 
-#####Backend:
+##### Backend:
 - NodeJS
 - ExpressJS
 - JsonWebToken (JWT)
