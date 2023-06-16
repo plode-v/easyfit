@@ -3,15 +3,18 @@ import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-const FoodInfo = ({ show, onHide, foods }) => {
+const FoodInfo = ({ show, onHide, foods, token }) => {
 
     const [amount, setAmount] = useState(foods.amount);
+    const { logs } = useLogsContext();
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault();
-        console.log(foods)
+        
+        const logId = logs.find(log => log.food === foods._id)._id;
+        console.log(logId)
+        // FIXME: update log
 
-        // TODO: Upate logs when submited
     }
     return (
         <Modal show={show} onHide={onHide} centered>
@@ -26,30 +29,33 @@ const FoodInfo = ({ show, onHide, foods }) => {
                 <div className="grid">
                     <div className="flex justify-between">
                         <p>Amount</p>
-                        <form className="w-min" onSubmit={handleSubmit}>
+                        <form className="w-min">
                             <div className="flex gap-[10px]">
-                                <input type="number" className="border w-[50px]" value={amount} onChange={e => setAmount(e.target.value)} />
+                                <input type="number" autoFocus className="border w-[50px]" value={amount} onChange={e => setAmount(e.target.value)} />
                                 <p>{foods.unit}</p>
                             </div>
                         </form>
                     </div>
-                        <div className="mt-10 flex justify-between">
-                            <p>{Math.round(foods.calories * amount)} calories</p>
-                            <div className="px-[50px] flex gap-[20px]">
-                                <div className="flex flex-col justify-center items-center border h-[60px] w-[60px] rounded-full">
-                                    <p className="text-[18px] font-[600]">{Math.round(foods.carb * amount)}</p>
-                                    <p className="text-[0.7rem]">carb</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center border h-[60px] w-[60px] rounded-full">
-                                    <p className="text-[18px] font-[600]">{Math.round(foods.fat * amount)}</p>
-                                    <p className="text-[0.7rem]">fat</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center border h-[60px] w-[60px] rounded-full">
-                                    <p className="text-[18px] font-[600]">{Math.round(foods.protein * amount)}</p>
-                                    <p className="text-[0.7rem]">protein</p>
-                                </div>
+                    <div className="mt-10 flex justify-between items-center">
+                        <p className="font-[600]">{Math.round(foods.calories * amount)} Calories</p>
+                        <div className="flex gap-[10px]">
+                            <div className="flex flex-col justify-center items-center border-[3px] border-orange-400 h-[65px] w-[65px] rounded-full">
+                                <p className="text-[18px] font-[600]">{Math.round(foods.carb * amount)}</p>
+                                <p className="text-[0.7rem]">carb</p>
+                            </div>
+                            <div className="flex flex-col justify-center items-center border-[3px] border-green-400 h-[65px] w-[65px] rounded-full">
+                                <p className="text-[18px] font-[600]">{Math.round(foods.fat * amount)}</p>
+                                <p className="text-[0.7rem]">fat</p>
+                            </div>
+                            <div className="flex flex-col justify-center items-center border-[3px] border-blue-400 h-[65px] w-[65px] rounded-full">
+                                <p className="text-[18px] font-[600]">{Math.round(foods.protein * amount)}</p>
+                                <p className="text-[0.7rem]">protein</p>
                             </div>
                         </div>
+                    </div>
+                    <div className="mt-10 flex justify-center">
+                        <button type="submit" onClick={handleSubmit} className="bg-green-500 font-[600] text-[16px] text-white py-[7px] px-[15px] rounded-lg">Add Food</button>
+                    </div>
                 </div>
             </Modal.Body>
         </Modal>

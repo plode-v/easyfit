@@ -80,6 +80,7 @@ const FoodDetails = ({ foodId, logAmount }) => {
                     show={show}
                     onHide={handleClose}
                     foods={food}
+                    token={user.token}
                 />
             </div>
         </div>

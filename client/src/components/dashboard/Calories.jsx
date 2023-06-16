@@ -9,8 +9,7 @@ const Calories = ({ token }) => {
     const [foodCal, setFoodCal] = useState(0);
     const [calories, setCalories] = useState(0);
     let data = [];
-    
-    // TODO: add , in calories num
+
     useEffect(() => {
         const fetchCalories = async () => {
             try {

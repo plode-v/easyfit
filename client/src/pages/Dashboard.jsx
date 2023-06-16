@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
 
-    // FIXME: food calories is not corrolated with the rest
-
     const { user } = useAuthContext();
     const { dispatch, logs } = useLogsContext();
     const [food, setFood] = useState();

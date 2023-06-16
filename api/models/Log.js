@@ -70,4 +70,27 @@ logSchema.statics.deleteFoodFromlog = async function(id){
     return log;
 }
 
+logSchema.statics.updateFood = async function(id, newAmount) {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw Error("Invalid log ID");
+        }
+
+        const log = await this.findOneAndUpdate({
+            _id: id,
+            amount: newAmount,
+            new: true
+        })
+
+        if (!log) {
+            throw Error("Log not found");
+        }
+
+        return log;
+
+    } catch (err) {
+        throw Error(err);
+    }
+}
+
 module.exports = mongoose.model("Log", logSchema);
