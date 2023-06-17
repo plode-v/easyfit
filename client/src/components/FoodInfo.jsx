@@ -1,4 +1,4 @@
-import { useLogsContext, useFoodContext, useAuthContext } from "../hooks";
+import { useLogsContext } from "../hooks";
 import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
@@ -6,16 +6,31 @@ import Modal from "react-bootstrap/Modal";
 const FoodInfo = ({ show, onHide, foods, token }) => {
 
     const [amount, setAmount] = useState(foods.amount);
-    const { logs } = useLogsContext();
+    const { dispatch, logs } = useLogsContext();
 
-    const handleSubmit = async (e) =>{
+    const handleClick = async (e) =>{
         e.preventDefault();
         
         const logId = logs.find(log => log.food === foods._id)._id;
         console.log(logId)
-        // FIXME: update log
 
+        const response = await axios.patch(`http://localhost:3000/api/logs/${logId}`, {
+            newAmount: amount
+        }, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+
+        const data = response.data;
+
+        if (data.status === 200) {
+            dispatch({type: "UPDATE_LOGS", payload: data });
+        }
+        window.location.reload();
     }
+
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header>
@@ -54,7 +69,7 @@ const FoodInfo = ({ show, onHide, foods, token }) => {
                         </div>
                     </div>
                     <div className="mt-10 flex justify-center">
-                        <button type="submit" onClick={handleSubmit} className="bg-green-500 font-[600] text-[16px] text-white py-[7px] px-[15px] rounded-lg">Add Food</button>
+                        <button type="submit" onClick={handleClick} className="bg-green-500 font-[600] text-[16px] text-white py-[7px] px-[15px] rounded-lg">Add Food</button>
                     </div>
                 </div>
             </Modal.Body>

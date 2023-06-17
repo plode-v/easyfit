@@ -58,7 +58,7 @@ logSchema.statics.addFood = async function(user_id, food_id, amount) {
 
 logSchema.statics.deleteFoodFromlog = async function(id){
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw Error("No such workout")
+        throw Error("Invalid log ID")
     }
 
     const log = await this.findOneAndDelete({_id: id});
@@ -70,16 +70,15 @@ logSchema.statics.deleteFoodFromlog = async function(id){
     return log;
 }
 
-logSchema.statics.updateFood = async function(id, newAmount) {
+logSchema.statics.updateFood = async function(logId, newAmount) {
     try {
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(logId)) {
             throw Error("Invalid log ID");
         }
 
         const log = await this.findOneAndUpdate({
-            _id: id,
-            amount: newAmount,
-            new: true
+            _id: logId,
+            amount: newAmount
         })
 
         if (!log) {

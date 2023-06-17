@@ -20,10 +20,21 @@ const addFood = async (req, res) => {
 }
 
 const updateLog = async (req, res) => {
-    const { logId, newAmount } = req.body;
+    const { id } = req.params;
+    const { newAmount } = req.body;
 
     try {
-        const updatedLog = await Log.updateLog(logId, newAmount);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(403).json("Invalid log ID")
+        }
+
+
+
+        const updatedLog = await Log.findOneAndUpdate({
+            _id: id
+        }, {
+            amount: newAmount
+        })
 
         if (!updatedLog) {
             return res.status(404).json({ error: "Log not found" });
