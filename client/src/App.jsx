@@ -1,5 +1,4 @@
 import { BrowserRouter as Router } from 'react-router-dom'
-import { motion } from "framer-motion"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Analytics } from "@vercel/analytics/react";
 
@@ -28,15 +27,15 @@ function App() {
 	}
 
 	return (
-		<motion.div variants={item} initial="hidden" animate="show" className='w-full'>
+		<div className='w-full font-epilogue'>
 			<Router>
-				<motion.div variants={item}>
+				<div>
 					<Navbar />
 					<Analytics />
-				</motion.div>
+				</div>
 				<ConfigRoutes />
 			</Router>
-		</motion.div>
+		</div>
 	)
 }
 

@@ -9,6 +9,7 @@ const Profile = () => {
     const [weight, setWeight] = useState();
     const [age, setAge] = useState();
     const [calories, setCalories] = useState()
+    const [activity, setActivity] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +26,7 @@ const Profile = () => {
                 setWeight(data.weight)
                 setAge(data.age)
                 setCalories(data.calories)
+                setActivity(data.activity)
             }
         }
 
@@ -33,6 +35,7 @@ const Profile = () => {
 
     return (
         // TODO: if profile then show edit/update profile button, else show setProfile button
+
         // TODO: also have a button to use calories calculator somewhere and update profile upon data given to the calculator
 
         <div className="mt-[60px] flex items-center justify-center h-[500px]">
@@ -49,6 +52,9 @@ const Profile = () => {
                         </div>
                         <div>
                             calories: {calories} cal
+                        </div>
+                        <div>
+                            activity-level: {activity}
                         </div>
                     </div>
             </div>
