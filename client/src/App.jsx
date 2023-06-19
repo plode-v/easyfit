@@ -7,27 +7,8 @@ import { Navbar} from './components'
 
 function App() {
 
-
-	const item = {
-		hidden: {
-			opacity: 0,
-			y: -200,
-			transition: {
-				duration: 0.8
-			}
-		},
-		show: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.8,
-				staggerChildren: 0.5,
-			}
-		}
-	}
-
 	return (
-		<div className='w-full font-epilogue'>
+		<div className='w-full'>
 			<Router>
 				<div>
 					<Navbar />

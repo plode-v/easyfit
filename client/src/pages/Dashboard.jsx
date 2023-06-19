@@ -45,8 +45,8 @@ const Dashboard = () => {
                     <div className="flex justify-center items-center">
                         <Calories token={user.token} logs={food} />
                     </div>
-                    <div className="w-full flex flex-col px-[0.75rem] items-center">
-                        <div className="flex flex-col h-full w-full border rounded-[5px]">
+                    <div className="w-full flex flex-col px-[0.75rem] justify-center">
+                        <div className="flex flex-col h-full w-full border-[2px] border-green-500 rounded-[5px]">
                             {logs && logs.map(item => (
                                 <div key={item._id}>
                                     <FoodDetails foodId={item.food} logAmount={item.amount} />
@@ -55,8 +55,8 @@ const Dashboard = () => {
                         </div>
                         <div className="flex flex-col h-full w-[100px] mt-[20px]">
                             <Link to="/search" className="flex items-center">
-                                <button className="flex items-center bg-green-500 px-[0.75rem] py-[0.5rem] rounded-[5px]">
-                                    <p className="text-[16px] flex capitalize text-white font-[600]">add food</p>
+                                <button className="flex bg-green-500 px-[0.75rem] py-[0.5rem] rounded-[5px]">
+                                    <p className="text-[16px] capitalize text-white font-[600]">add food</p>
                                 </button>
                             </Link>
                         </div>
