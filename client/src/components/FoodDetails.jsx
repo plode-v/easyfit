@@ -70,8 +70,12 @@ const FoodDetails = ({ foodId, logAmount }) => {
                 </div>
                 <div className="flex-col flex">
                     <div className="flex gap-[5px] justify-end">
-                        <button onClick={handleShow}><BiEdit className="text-[20px] text-green-800" /></button>
-                        <button onClick={handleTrash}><BiTrash className="text-[20px]" /></button>
+                        <button onClick={handleShow}>
+                            <BiEdit className="text-[20px] text-green-800" />
+                        </button>
+                        <button onClick={handleTrash}>
+                            <BiTrash className="text-[20px]" />
+                        </button>
                     </div>
                     <div className="flex justify-end pt-[10px]">
                         {Math.round(food.calories * logAmount)} cal
