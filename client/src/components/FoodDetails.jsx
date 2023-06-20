@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLogsContext } from "../hooks";
-import { apiKey } from "../constants";
+import { useLogsContext, useAuthContext } from "../hooks";
+import { FoodInfo } from "./"
+import { BiEdit, BiTrash } from "react-icons/bi"
+import { apiKey } from "../constants"
 
-const FoodDetails = ({ foodId, token, log }) => {
+const FoodDetails = ({ foodId, logAmount }) => {
     const [food, setFood] = useState()
-    const { dispatch } = useLogsContext();
+    const { dispatch, logs } = useLogsContext();
+    const { user } = useAuthContext();
+
+    const [show, setShow] = useState(false)
+
     
     useEffect(() => {
         const fetchFood = async () => {
             try {
-                const response = await axios.get(
-                    `${apiKey}/api/foods/getFood/${foodId}`,
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        }
+                const response = await axios.get(`${apiKey}/api/foods/getFood/${foodId}`, {
+                    headers: {
+                        "Authorization": `Bearer ${user.token}`
                     }
-                    );
+                })
                     const data = await response.data;
                     if (data) {
                         setFood(data);
@@ -27,37 +30,64 @@ const FoodDetails = ({ foodId, token, log }) => {
                 }
             }
             fetchFood();
-    }, [food, token, foodId]);
+    }, [user, foodId]);
 
     if (!food) {
         return
     }
 
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+
 
     const handleTrash = async () => {
-        console.log(log)
-        const response = await axios.delete(`${apiKey}/api/logs/${log._id}`, {
+        const logId = logs.find(log => log.food === food._id)._id;
+        console.log(logId)
+        const response = await axios.delete(`${apiKey}/api/logs/${logId}`, {
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${user.token}`
             }
         })
 
-        const data = await response.data;
+        const data = response.data;
 
         if (response.status === 200) {
-            dispatch({ type: "DELETE_LOGS", payload: data });
+            dispatch({ type: "DELETE_LOGS", payload: data })
         }
+
+
     }
 
-
     return (
-        <div className="border h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>
+        <div className="h-max w-full py-[0.5rem] px-[0.75rem]" key={foodId}>
             <div className="flex items-center justify-between">
-                <div>{food.name}</div>
-                <button onClick={handleTrash}>Trash</button>
-            </div>
-            <div>
-                {food.calories}
+                <div className="flex flex-col">
+                    <div>
+                        <p>{food.name}</p>
+                    </div>
+                    <div>
+                        <p className="text-gray-500 lg:text-[14px] text-[12px]">{logAmount * food.amount} {food.unit}</p>
+                    </div>
+                </div>
+                <div className="flex-col flex">
+                    <div className="flex gap-[5px] justify-end">
+                        <button onClick={handleShow}>
+                            <BiEdit className="lg:text-[20px] text-[18px] text-green-800" />
+                        </button>
+                        <button onClick={handleTrash}>
+                            <BiTrash className="lg:text-[20px] text-[18px]" />
+                        </button>
+                    </div>
+                    <div className="flex justify-end pt-[10px] font-[500] text-[14px]">
+                        {Math.round(food.calories * logAmount)} cal
+                    </div>
+                </div>
+                <FoodInfo
+                    show={show}
+                    onHide={handleClose}
+                    foods={food}
+                    token={user.token}
+                />
             </div>
         </div>
     )

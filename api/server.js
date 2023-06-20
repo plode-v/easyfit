@@ -1,5 +1,5 @@
 const express = require("express")
-const { foodRoutes, userRoutes, logRoutes } = require("./routes")
+const { foodRoutes, userRoutes, logRoutes, profileRoutes } = require("./routes")
 const mongoose = require("mongoose")
 require("dotenv").config();
 const cors = require("cors")
@@ -18,6 +18,7 @@ app.use((req, res, next) => {
 app.use("/api/foods", foodRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/logs', logRoutes);
+app.use("/api/profiles", profileRoutes);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

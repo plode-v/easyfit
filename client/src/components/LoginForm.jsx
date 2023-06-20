@@ -12,6 +12,7 @@ const LoginForm = () => {
         e.preventDefault();
 
         await login(email.toLowerCase(), password)
+        console.log(error)
     }
 
     return (

@@ -8,7 +8,12 @@ const logSchema = new mongoose.Schema({
     },
     food: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Food"
+        ref: "Food",
+    },
+    amount: {
+        type: Number,
+        required: true,
+        min: 0
     }
 },{
     timestamps: true
@@ -27,14 +32,15 @@ logSchema.statics.searchLogs = async function(user_id) {
     return logs;
 }
 
-logSchema.statics.addFood = async function(user_id, food_id) {
+logSchema.statics.addFood = async function(user_id, food_id, amount) {
     try {
         const food = await Food.findOne({_id: food_id})
         const log = await this.findOne({ _id: user_id });
         if (!log) {
             const newLog = await this.create({
                 user_id,
-                food
+                food,
+                amount
             })
             await newLog.save();
         }
@@ -52,7 +58,7 @@ logSchema.statics.addFood = async function(user_id, food_id) {
 
 logSchema.statics.deleteFoodFromlog = async function(id){
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw Error("No such workout")
+        throw Error("Invalid log ID")
     }
 
     const log = await this.findOneAndDelete({_id: id});
@@ -62,6 +68,28 @@ logSchema.statics.deleteFoodFromlog = async function(id){
     }
 
     return log;
+}
+
+logSchema.statics.updateFood = async function(logId, newAmount) {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(logId)) {
+            throw Error("Invalid log ID");
+        }
+
+        const log = await this.findOneAndUpdate({
+            _id: logId,
+            amount: newAmount
+        })
+
+        if (!log) {
+            throw Error("Log not found");
+        }
+
+        return log;
+
+    } catch (err) {
+        throw Error(err);
+    }
 }
 
 module.exports = mongoose.model("Log", logSchema);

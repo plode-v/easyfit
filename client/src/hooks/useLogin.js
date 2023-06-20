@@ -12,36 +12,39 @@ const useLogin = () => {
     const { dispatch } = useAuthContext();
 
     const login = async (email, password) => {
-
-        const response = await axios.post(`${apiKey}/api/users/login`, {
-                email,
-                password
-            }, {
-                headers: {
-                    "Content-Type": "application/json"
+        try {
+            const response = await axios.post(
+                `${apiKey}/api/users/login`,
+                {
+                    email,
+                    password
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 }
+            );
+            const data = response.data;
+            if (response.status === 200) {
+                setIsLoading(true);
+                setError(null);
+                localStorage.setItem("user", JSON.stringify(data))
+                
+                dispatch({ type: "LOGIN", payload: data})
+                setIsLoading(null);
+                setSuccess("Login Successful");
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000);
             }
-
-            )
-        const data = await response.data;
-
-        if (response.status !== 200) {
-            setError(data.error)
-            setIsLoading(null);
+        } catch (err) {
+            setError(err.response.data.error)
+            setIsLoading(null)
         }
-        if (response.status === 200) {
-            setIsLoading(true);
-            setError(null);
-            localStorage.setItem("user", JSON.stringify(data))
-            
-            dispatch({ type: "LOGIN", payload: data})
-            setIsLoading(null);
-            setSuccess("Login Successful");
-            setTimeout(() => {
-                navigate('/')
-            }, 1000);
-        }
-    }
+
+}
+
 
     return {
         error,

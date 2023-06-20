@@ -40,7 +40,7 @@ const getFood = async (req, res) => {
 
 // create food 
 const createFood = async (req, res) => {
-    const { name, calories, carb, protein, fat } = req.body;
+    const { name, calories, carb, protein, fat, amount, unit } = req.body;
 
     let emptyFields = []
 
@@ -57,7 +57,7 @@ const createFood = async (req, res) => {
     // add doc to db
     try {
         const user_id = req.user._id;
-        const food = await Food.create({ name, calories, carb, fat, protein, user_id });
+        const food = await Food.create({ name, calories, carb, fat, protein, user_id, amount, unit });
         res.status(200).json(food);
 
     } catch (err) {
