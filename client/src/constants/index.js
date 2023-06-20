@@ -15,4 +15,4 @@ export const footerItems = [
     "Terms",
 ]
 
-export const apiKey = import.meta.env.VITE_API_KEY;
+export const apiKey = import.meta.env.VITE_REACT_APP_API_URL;
