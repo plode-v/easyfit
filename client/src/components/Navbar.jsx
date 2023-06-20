@@ -46,7 +46,7 @@ const Navbar = () => {
                 {user ? (
                     <div className="flex gap-[20px] items-center">
                         <div className="flex cursor-pointer h-[40px] w-[40px] rounded-full border bg-white" onClick={handleProfile}>
-                            <p className="items-center flex justify-center w-full h-full font-sans font-[600] text-[22px] text-green-600 uppercase">{user.username.charAt(0)}</p>
+                            <p className="items-center flex justify-center w-full h-full font-sans font-[600] text-[22px] text-green-600 uppercase">{user.username ? user.username.charAt(0) : null}</p>
                         </div>
                         <button onClick={handleLogout} className="rounded-md bg-white text-green-800 py-1 px-2">Logout</button>
                     </div>

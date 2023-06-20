@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthContext, useProfileContext } from "../hooks"
 import axios from "axios";
-import { apiKey } from "constants"
+import { apiKey } from "../constants"
 
 const Profile = () => {
     const { user } = useAuthContext();
@@ -53,7 +53,7 @@ const Profile = () => {
         <div className="mt-[60px] flex flex-col items-center h-full w-full">
             <div className="flex flex-col my-[80px] items-center justify-center md:w-[600px] w-full px-[8px]">
                 <div className="bg-green-600 rounded-full h-[120px] w-[120px] flex justify-center items-center">
-                    <p className="uppercase font-[700] text-[60px] text-white">{user.username.charAt(0)}</p>
+                    <p className="uppercase font-[700] text-[60px] text-white">{user.username ? user.username[0] : null}</p>
                 </div>
                 <div className="w-full flex mt-[40px] font-open">
                     <div className="text-[14px] md:text-[16px] flex flex-col bg-green-700 w-1/3 capitalize font-[500] text-white gap-[10px] rounded-l-lg p-[10px]">

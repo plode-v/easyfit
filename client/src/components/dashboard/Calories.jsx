@@ -26,10 +26,6 @@ const Calories = ({ token }) => {
                 if (data) {
                     dispatch({ type: "SET_PROFILES", payload: data })
                     setCalories(data.calories)
-                    const newCal = (calories.toString()).split("")
-                    for (let i = 0; i < newCal.length; i++) {
-                        console.log(newCal[i])
-                    }
                 }
             } catch (err) {
                 console.error(err);
@@ -50,7 +46,7 @@ const Calories = ({ token }) => {
             let cal = [];
 
             for (let i = 0; i < foods.length; i++) {
-                const response = await axios.get(`http://localhost:3000/api/foods/getFood/${foods[i]}`, {
+                const response = await axios.get(`${apiKey}/api/foods/getFood/${foods[i]}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
