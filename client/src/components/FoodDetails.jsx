@@ -65,19 +65,19 @@ const FoodDetails = ({ foodId, logAmount }) => {
                         <p>{food.name}</p>
                     </div>
                     <div>
-                        <p className="text-gray-500 text-[14px]">{logAmount * food.amount} {food.unit}</p>
+                        <p className="text-gray-500 lg:text-[14px] text-[12px]">{logAmount * food.amount} {food.unit}</p>
                     </div>
                 </div>
                 <div className="flex-col flex">
                     <div className="flex gap-[5px] justify-end">
                         <button onClick={handleShow}>
-                            <BiEdit className="text-[20px] text-green-800" />
+                            <BiEdit className="lg:text-[20px] text-[18px] text-green-800" />
                         </button>
                         <button onClick={handleTrash}>
-                            <BiTrash className="text-[20px]" />
+                            <BiTrash className="lg:text-[20px] text-[18px]" />
                         </button>
                     </div>
-                    <div className="flex justify-end pt-[10px]">
+                    <div className="flex justify-end pt-[10px] font-[500] text-[14px]">
                         {Math.round(food.calories * logAmount)} cal
                     </div>
                 </div>

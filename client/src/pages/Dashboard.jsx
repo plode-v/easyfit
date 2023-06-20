@@ -40,7 +40,7 @@ const Dashboard = () => {
         {isLoading ? (
             <p>loading</p>
         ) : (
-            <div className="flex h-full w-full items-center justify-center bg-white mt-[60px]">
+            <div className="flex h-full w-full items-center justify-center bg-white mt-[60px] font-open">
                 <div className="w-full md:w-[600px] xl:w-[800px] flex-col flex">
                     <div className="flex justify-center items-center">
                         <Calories token={user.token} logs={food} />
@@ -55,7 +55,7 @@ const Dashboard = () => {
                         </div>
                         <div className="flex flex-col h-full w-[100px] mt-[20px]">
                             <Link to="/search" className="flex items-center">
-                                <button className="flex bg-green-500 px-[0.75rem] py-[0.5rem] rounded-[5px]">
+                                <button className="flex bg-green-700 px-[0.75rem] py-[0.5rem] rounded-[5px]">
                                     <p className="text-[16px] capitalize text-white font-[600]">add food</p>
                                 </button>
                             </Link>

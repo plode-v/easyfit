@@ -41,7 +41,7 @@ const Navbar = () => {
         <nav className={`fixed z-20 top-0 bg-green-600 text-white h-[60px] w-full flex justify-center items-center px-3 transition duration-300 ease-in-out ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
             <div className="flex w-full lg:w-[1300px] justify-between items-center">
                 <h1 className="font-[600] text-[24px]">
-                    <Link className="text-white" to="/">EasyFit</Link>
+                    <Link className="text-white font-open font-[700]" to="/">EasyFit</Link>
                 </h1>
                 {user ? (
                     <div className="flex gap-[20px] items-center">
