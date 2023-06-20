@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
 import { FoodInfo } from "./"
+import { BiEdit, BiTrash } from "react-icons/bi"
 
 const FoodDetails = ({ foodId, logAmount }) => {
     const [food, setFood] = useState()
@@ -64,15 +65,19 @@ const FoodDetails = ({ foodId, logAmount }) => {
                         <p>{food.name}</p>
                     </div>
                     <div>
-                        <p className="text-gray-500">{logAmount * food.amount} {food.unit}</p>
+                        <p className="text-gray-500 lg:text-[14px] text-[12px]">{logAmount * food.amount} {food.unit}</p>
                     </div>
                 </div>
                 <div className="flex-col flex">
-                    <div className="flex gap-[5px]">
-                        <button onClick={handleShow}>Edit</button>
-                        <button onClick={handleTrash}>Trash</button>
+                    <div className="flex gap-[5px] justify-end">
+                        <button onClick={handleShow}>
+                            <BiEdit className="lg:text-[20px] text-[18px] text-green-800" />
+                        </button>
+                        <button onClick={handleTrash}>
+                            <BiTrash className="lg:text-[20px] text-[18px]" />
+                        </button>
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex justify-end pt-[10px] font-[500] text-[14px]">
                         {Math.round(food.calories * logAmount)} cal
                     </div>
                 </div>
@@ -80,6 +85,7 @@ const FoodDetails = ({ foodId, logAmount }) => {
                     show={show}
                     onHide={handleClose}
                     foods={food}
+                    token={user.token}
                 />
             </div>
         </div>

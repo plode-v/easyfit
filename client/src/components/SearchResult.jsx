@@ -39,7 +39,7 @@ const SearchResult = ({ handleClose, result, show }) => {
             <Modal show={show} onHide={handleClose} scrollable={true} centered>
             <Modal.Header className="flex-col flex items-start">
                 <Modal.Title>Search Results</Modal.Title>
-            <p className="text-red-500 text-[14px]">*If does not specify, all calories are per 100 grams*</p>
+            <p className="text-red-500 text-[14px]">*If not specified, all calories are per 1 gram*</p>
             </Modal.Header>
             <Modal.Body>
                 {result && result.map(item => (

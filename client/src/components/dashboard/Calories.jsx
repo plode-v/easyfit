@@ -10,6 +10,7 @@ const Calories = ({ token }) => {
     const [calories, setCalories] = useState(0);
     let data = [];
     
+    // TODO: add , in calories num
     useEffect(() => {
         const fetchCalories = async () => {
             try {
@@ -24,6 +25,10 @@ const Calories = ({ token }) => {
                 if (data) {
                     dispatch({ type: "SET_PROFILES", payload: data })
                     setCalories(data.calories)
+                    const newCal = (calories.toString()).split("")
+                    for (let i = 0; i < newCal.length; i++) {
+                        console.log(newCal[i])
+                    }
                 }
             } catch (err) {
                 console.error(err);
@@ -70,7 +75,7 @@ const Calories = ({ token }) => {
     }, [dispatch, token, logs])
 
   return (
-    <div className="flex w-full items-center justify-center lg:w-[600px]">
+    <div className="flex w-full items-center justify-center md:w-[600px] font-sans">
         <div className="flex-1 items-center justify-center flex-col flex h-max py-3">
             <span className="lg:text-[30px] text-[24px] font-[700]">{calories}</span>
             <span className="lg:text-[20px] text-[14px]">Goal</span>

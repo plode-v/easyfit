@@ -44,7 +44,7 @@ const Search = () => {
     return (
         <div className="flex flex-col mt-[60px] w-full">
             <div className="flex h-[600px] items-center justify-center">
-                <form onSubmit={handleSubmit} className="flex flex-col w-1/4">
+                <form onSubmit={handleSubmit} className="flex flex-col lg:w-1/4 w-2/3">
                     <input 
                         type="text" 
                         placeholder="search"    

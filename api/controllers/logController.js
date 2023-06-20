@@ -19,6 +19,33 @@ const addFood = async (req, res) => {
     return res.status(200).json(logs)
 }
 
+const updateLog = async (req, res) => {
+    const { id } = req.params;
+    const { newAmount } = req.body;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(403).json("Invalid log ID")
+        }
+
+
+
+        const updatedLog = await Log.findOneAndUpdate({
+            _id: id
+        }, {
+            amount: newAmount
+        })
+
+        if (!updatedLog) {
+            return res.status(404).json({ error: "Log not found" });
+        }
+
+        return res.status(200).json(updatedLog);
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+}
+
 const deleteFoodLog = async (req, res) => {
     const { id } = req.params;
 
@@ -38,5 +65,6 @@ const deleteFoodLog = async (req, res) => {
 module.exports = {
     getLogs,
     addFood,
-    deleteFoodLog
+    deleteFoodLog,
+    updateLog
 }
