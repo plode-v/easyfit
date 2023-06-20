@@ -66,7 +66,12 @@ const createProfile = async (req, res) => {
     }
 }
 
+const updateProfile = async (req, res) => {
+    // TODO: new route for update profile
+}
+
 module.exports = {
     getProfile,
-    createProfile
+    createProfile,
+    updateProfile
 }

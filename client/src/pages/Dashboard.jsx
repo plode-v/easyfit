@@ -4,6 +4,7 @@ import { useAuthContext, useLogsContext } from "../hooks"
 import axios from "axios"
 import { FoodDetails } from "../components"
 import { Link } from "react-router-dom"
+import { apiKey } from "../constants"
 
 const Dashboard = () => {
 
@@ -15,7 +16,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchLogs = async () => {
             setIsloading(true)
-            const response = await axios.get("http://localhost:3000/api/logs", {
+            const response = await axios.get(`${apiKey}/api/logs`, {
                 headers: {
                     "Authorization": `Bearer ${user.token}`
                 }
