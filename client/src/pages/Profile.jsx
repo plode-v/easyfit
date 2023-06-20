@@ -32,6 +32,8 @@ const Profile = () => {
                 setCalories(data.calories)
                 setActivity(data.activity)
             }
+
+            console.log(user)
         }
 
         fetchData();
