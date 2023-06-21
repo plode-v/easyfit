@@ -4,19 +4,39 @@ import { Analytics } from "@vercel/analytics/react";
 
 import { ConfigRoutes } from "./configs"
 import { Navbar} from './components'
+import { useEffect, useState } from 'react';
 
 function App() {
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const loadingTimeout = setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+
+		return () => {
+			clearTimeout(loadingTimeout);
+		}
+	}, [])
 
 	return (
-		<div className='w-full'>
-			<Router>
+		<>
+			{isLoading ? (
 				<div>
-					<Navbar />
-					<Analytics />
+					loading...
 				</div>
-				<ConfigRoutes />
-			</Router>
-		</div>
+			) : (
+				<div className='w-full'>
+					<Router>
+						<div>
+							<Navbar />
+							<Analytics />
+						</div>
+						<ConfigRoutes />
+					</Router>
+				</div>
+			)}
+		</>
 	)
 }
 
