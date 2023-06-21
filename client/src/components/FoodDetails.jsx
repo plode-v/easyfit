@@ -3,7 +3,6 @@ import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
 import { FoodInfo } from "./"
 import { BiEdit, BiTrash } from "react-icons/bi"
-import { apiKey } from "../constants"
 
 const FoodDetails = ({ foodId, logAmount }) => {
     const [food, setFood] = useState()
@@ -16,7 +15,7 @@ const FoodDetails = ({ foodId, logAmount }) => {
     useEffect(() => {
         const fetchFood = async () => {
             try {
-                const response = await axios.get(`${apiKey}/api/foods/getFood/${foodId}`, {
+                const response = await axios.get(`http://localhost:3000/api/foods/getFood/${foodId}`, {
                     headers: {
                         "Authorization": `Bearer ${user.token}`
                     }
@@ -43,7 +42,7 @@ const FoodDetails = ({ foodId, logAmount }) => {
     const handleTrash = async () => {
         const logId = logs.find(log => log.food === food._id)._id;
         console.log(logId)
-        const response = await axios.delete(`${apiKey}/api/logs/${logId}`, {
+        const response = await axios.delete(`http://localhost:3000/api/logs/${logId}`, {
             headers: {
                 "Authorization": `Bearer ${user.token}`
             }

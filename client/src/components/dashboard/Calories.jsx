@@ -1,7 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { useLogsContext, useProfileContext } from "../../hooks";
-import { apiKey } from "../../constants"
 
 const Calories = ({ token }) => {
 
@@ -15,7 +14,7 @@ const Calories = ({ token }) => {
     useEffect(() => {
         const fetchCalories = async () => {
             try {
-                const response = await axios.get(`${apiKey}/api/profiles`, {
+                const response = await axios.get(`http://localhost:3000/api/profiles`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
@@ -46,7 +45,7 @@ const Calories = ({ token }) => {
             let cal = [];
 
             for (let i = 0; i < foods.length; i++) {
-                const response = await axios.get(`${apiKey}/api/foods/getFood/${foods[i]}`, {
+                const response = await axios.get(`http://localhost:3000/api/foods/getFood/${foods[i]}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }

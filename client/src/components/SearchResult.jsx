@@ -4,7 +4,6 @@ import axios from "axios";
 import { useLogsContext, useAuthContext } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { apiKey } from "../constants";
 
 
 const SearchResult = ({ handleClose, result, show }) => {
@@ -16,7 +15,7 @@ const SearchResult = ({ handleClose, result, show }) => {
 
     const handleClick = async (food, amount) => {
         try {
-            const response = await axios.post(`${apiKey}/api/logs`, {
+            const response = await axios.post(`http://localhost:3000/api/logs`, {
                 user_id: user._id,
                 foodId: food,
                 amount
