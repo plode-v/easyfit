@@ -2,6 +2,7 @@ import useAuthContext from "./useAuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
+import { apiKey } from "../constants";
 
 const useLogin = () => {
     const navigate = useNavigate();
@@ -11,9 +12,10 @@ const useLogin = () => {
     const { dispatch } = useAuthContext();
 
     const login = async (email, password) => {
+        console.log(apiKey)
         try {
             const response = await axios.post(
-                `http://localhost:3000/api/users/login`,
+                `${apiKey}/api/users/login`,
                 {
                     email,
                     password

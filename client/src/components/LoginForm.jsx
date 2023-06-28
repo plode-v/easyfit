@@ -11,6 +11,7 @@ const LoginForm = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
+
         await login(email.toLowerCase(), password)
         console.log(error)
     }

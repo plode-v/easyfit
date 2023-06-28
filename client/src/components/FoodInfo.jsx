@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { GrFormClose } from "react-icons/gr"
+import { apiKey } from "../constants";
 
 const FoodInfo = ({ show, onHide, foods, token }) => {
 
@@ -15,7 +16,7 @@ const FoodInfo = ({ show, onHide, foods, token }) => {
         const logId = logs.find(log => log.food === foods._id)._id;
         console.log(logId)
 
-        const response = await axios.patch(`http://localhost:3000/api/logs/${logId}`, {
+        const response = await axios.patch(`${apiKey}/api/logs/${logId}`, {
             newAmount: amount
         }, {
             headers: {

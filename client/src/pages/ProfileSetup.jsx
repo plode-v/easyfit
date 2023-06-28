@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useProfileContext, useAuthContext } from '../hooks';
 import Modal from "react-bootstrap/Modal"
 import { useNavigate } from 'react-router-dom';
+import { apiKey } from '../constants';
 
 const ProfileSetup = () => {
     // TODO: make this page popup right when user register.
@@ -29,7 +30,7 @@ const ProfileSetup = () => {
             cal = (Math.round(((10 * weight) + (6.25 * height ) - (5 * age + 5 )) * activity))
         }
 
-        const response = await axios.post(`http://localhost:3000/api/profiles`, {
+        const response = await axios.post(`${apiKey}/api/profiles`, {
             height,
             weight,
             age,
