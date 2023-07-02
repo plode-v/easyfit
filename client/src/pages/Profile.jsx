@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthContext, useProfileContext } from "../hooks"
 import axios from "axios";
-import { apiKey } from "../constants";
+import { apiKey } from "../constants"
 
 const Profile = () => {
     const { user } = useAuthContext();

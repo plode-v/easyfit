@@ -12,7 +12,6 @@ const useLogin = () => {
     const { dispatch } = useAuthContext();
 
     const login = async (email, password) => {
-        console.log(apiKey)
         try {
             const response = await axios.post(
                 `${apiKey}/api/users/login`,

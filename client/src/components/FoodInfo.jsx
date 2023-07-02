@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { GrFormClose } from "react-icons/gr"
-import { apiKey } from "../constants";
+import { apiKey } from "../constants"
 
 const FoodInfo = ({ show, onHide, foods, token }) => {
 
