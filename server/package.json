@@ -12,6 +12,9 @@
     "type": "git",
     "url": "https://github.com/plode-v/easyfit.git"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
