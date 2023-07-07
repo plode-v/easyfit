@@ -13,7 +13,7 @@
     "url": "https://github.com/plode-v/easyfit.git"
   },
   "engines": {
-    "node": "20.x"
+    "node": "18.x"
   },
   "keywords": [],
   "author": "",
