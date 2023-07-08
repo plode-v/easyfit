@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:18.16.1
 
 RUN npm install -g nodemon
 
@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 4000
 
-CMD [ "nodemon", "server.js" ]
+CMD ["npm", "run", "dev"]
