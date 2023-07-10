@@ -3,8 +3,13 @@ services:
   api:
     build: ./server
     container_name: server_c
+    image_name: easyfit_server
+    environment:
+    - MONGO_URI=mongodb+srv://admin:Admin123@easyfit.4phimcg.mongodb.net/EasyFit?retryWrites=true&w=majority
+    - SECRET=thisisjwtsecret
+    - PORT=4000
     ports:
       - '4000:4000'
     volumes:
-      - ./server:/app
-      - ./app/node_modules
+      - /Users/admin/Desktop/personal\ projects/easyfit/server
+      - /app/node_modules
