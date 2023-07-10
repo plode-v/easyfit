@@ -2,3 +2,4 @@
 vercel.json
 .env*.local
 docker-compose.yaml
+*.yaml
