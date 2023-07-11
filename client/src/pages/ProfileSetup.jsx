@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { apiKey } from '../constants';
 
 const ProfileSetup = () => {
-    // TODO: make this page popup right when user register.
 
     const { dispatch } = useProfileContext();
     const { user } = useAuthContext();
