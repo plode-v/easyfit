@@ -1,7 +1,7 @@
 # EasyFit
 
 #### Make healthy lifestyle simplier.
-**[EasyFit Link][1]**
+**[EasyFit Link][1]** (not connected to the backend yet)
 
 ------------
 
