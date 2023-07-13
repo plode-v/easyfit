@@ -32,7 +32,7 @@ EasyFit was inspired by popular mobile application **[MyFitnessPal][3]** where u
 - MongoDB Atlas
 
 
-docker-compose.yaml is not included in GitHub due to containing sensitive content.
+*docker-compose.yaml is not included in GitHub due to containing sensitive content.*
 
 
 
