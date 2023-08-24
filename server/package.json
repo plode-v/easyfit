@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "nodemon server.js",
-    "vercel-build": "echo hello"
+    "build": "node server.js"
   },
   "repository": {
     "type": "git",
