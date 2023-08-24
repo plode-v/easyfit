@@ -20,6 +20,10 @@ app.use("/api/users", userRoutes);
 app.use('/api/logs', logRoutes);
 app.use("/api/profiles", profileRoutes);
 
+app.use("/api/test", (req, res) => {
+    res.json({ message: "Hello" });
+})
+
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {

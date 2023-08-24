@@ -1,7 +1,7 @@
 # EasyFit
 
 #### Make healthy lifestyle simplier.
-**[EasyFit Link][1]**
+**[EasyFit Link][1]** (not connected to the backend yet)
 
 ------------
 
@@ -31,6 +31,8 @@ EasyFit was inspired by popular mobile application **[MyFitnessPal][3]** where u
 - Mongoose
 - MongoDB Atlas
 
+
+*docker-compose.yaml is not included in GitHub due to containing sensitive content.*
 
 
 
