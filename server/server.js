@@ -20,7 +20,7 @@ app.use("/api/users", userRoutes);
 app.use('/api/logs', logRoutes);
 app.use("/api/profiles", profileRoutes);
 
-app.use("/api/test", (req, res) => {
+app.use("/", (req, res) => {
     res.json({ message: "Hello" });
 })
 
